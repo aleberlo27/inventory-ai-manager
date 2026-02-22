@@ -13,7 +13,7 @@ import type { Product, StockStatus } from '@shared/types';
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [TranslatePipe, Tag, Button],
+  imports: [ Tag, Button],
   templateUrl: 'product-card.component.html',
 })
 export class ProductCardComponent {
@@ -35,7 +35,9 @@ export class ProductCardComponent {
 
   statusLabel = computed(() => getStockStatusLabel(this.stockStatus()));
 
-  statusSeverity = computed(() => getStockStatusSeverity(this.stockStatus()));
+  statusSeverity = computed<TagSeverityType>(() =>
+    getStockStatusSeverity(this.stockStatus()) as TagSeverityType
+  );
 
   onEdit(): void {
     this.edit.emit(this._product());

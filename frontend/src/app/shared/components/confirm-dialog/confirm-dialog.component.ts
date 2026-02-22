@@ -11,7 +11,7 @@ import { Toast } from 'primeng/toast';
 @Component({
   selector: 'app-confirm-dialog',
   standalone: true,
-  imports: [TranslatePipe, ConfirmDialog, Toast],
+  imports: [ ConfirmDialog, Toast],
   templateUrl: 'confirm-dialog.component.html',
 })
 export class ConfirmDialogComponent {}
