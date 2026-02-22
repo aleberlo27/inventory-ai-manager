@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Button } from 'primeng/button';
 import { Card } from 'primeng/card';
@@ -9,7 +10,7 @@ import type { Warehouse } from '@shared/types';
 @Component({
   selector: 'app-warehouse-card',
   standalone: true,
-  imports: [TranslatePipe, Button, Card, Badge],
+  imports: [DatePipe, TranslatePipe, Button, Card, Badge],
   templateUrl: 'warehouse-card.component.html',
 })
 export class WarehouseCardComponent {
