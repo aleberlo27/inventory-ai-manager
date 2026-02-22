@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
 import warehouseRoutes from './routes/warehouse.routes';
+import productIdRoutes from './routes/product-id.routes';
+import { authMiddleware } from './middleware/auth.middleware';
 import { errorMiddleware } from './middleware/error.middleware';
 
 dotenv.config();
@@ -18,6 +20,9 @@ app.get('/health', (_req, res) => {
 
 app.use('/auth', authRoutes);
 app.use('/warehouses', warehouseRoutes);
+
+// Standalone product routes: GET/PATCH/DELETE /products/:id and GET /products/search
+app.use('/products', authMiddleware, productIdRoutes);
 
 app.use(errorMiddleware);
 
