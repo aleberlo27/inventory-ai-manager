@@ -111,5 +111,29 @@
   "STOCK_ALERT": {
     "EMPTY_PRODUCTS": "{count} product(s) out of stock",
     "LOW_STOCK_PRODUCTS": "{count} product(s) with low stock"
+  },
+  "APP": {
+    "TITLE": "Inventory AI",
+    "TAGLINE": "Intelligent inventory management"
+  },
+  "TOPBAR": {
+    "WAREHOUSES": "Warehouses",
+    "PROFILE": "My Profile",
+    "LOGOUT": "Log Out"
+  },
+  "AI_CHAT": {
+    "COMING_SOON": "AI Chat coming soon..."
+  },
+  "BREADCRUMB": {
+    "WAREHOUSE_DETAIL": "Warehouse",
+    "PROFILE": "My Profile"
+  },
+  "NOT_FOUND": {
+    "TITLE": "Page not found",
+    "DESCRIPTION": "The page you are looking for does not exist or has been moved.",
+    "BACK_BUTTON": "Back to home"
+  },
+  "PROFILE": {
+    "TITLE": "My Profile"
   }
 }
