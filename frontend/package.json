@@ -14,8 +14,7 @@
     "lint": "ng lint",
     "typecheck": "tsc --noEmit",
     "quality": "npm run lint && npm run typecheck && npm run test",
-    "verify": "npm run quality && npm run test:e2e && npm run build",
-    "serve:ssr:frontend": "node dist/frontend/server/server.mjs"
+    "verify": "npm run quality && npm run test:e2e && npm run build"
   },
   "prettier": {
     "printWidth": 100,
@@ -33,12 +32,11 @@
   "dependencies": {
     "@angular/common": "^20.1.0",
     "@angular/compiler": "^20.1.0",
-    "@angular/core": "^20.1.0",
+    "@angular/core": "^20.3.16",
     "@angular/forms": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
     "@angular/platform-server": "^20.1.0",
     "@angular/router": "^20.1.0",
-    "@angular/ssr": "^20.1.6",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "express": "^5.1.0",
@@ -46,11 +44,12 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.1.6",
-    "@angular/cli": "^20.1.6",
+    "@angular/build": "^20.3.16",
+    "@angular/cli": "^20.3.16",
     "@angular/compiler-cli": "^20.1.0",
     "@playwright/test": "^1.58.2",
     "@primeng/themes": "^21.0.4",
+    "@tailwindcss/postcss": "^4.2.0",
     "@types/express": "^5.0.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.17.19",
@@ -61,7 +60,7 @@
     "postcss": "^8.5.6",
     "primeicons": "^7.0.0",
     "primeng": "^21.1.1",
-    "tailwindcss": "^4.2.0",
+    "tailwindcss": "3.3",
     "ts-jest": "^29.4.6",
     "typescript": "~5.8.2"
   }
