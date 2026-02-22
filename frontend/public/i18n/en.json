@@ -1,0 +1,22 @@
+{
+  "AUTH": {
+    "LOGIN_TITLE": "Sign In",
+    "REGISTER_TITLE": "Create account",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "NAME": "Name",
+    "CONFIRM_PASSWORD": "Confirm password",
+    "LOGIN_BUTTON": "Sign in",
+    "REGISTER_BUTTON": "Create account",
+    "LOADING": "Loading...",
+    "NO_ACCOUNT": "Don't have an account? Sign up",
+    "HAS_ACCOUNT": "Already have an account? Sign in",
+    "INVALID_CREDENTIALS": "Invalid email or password"
+  },
+  "VALIDATION": {
+    "VALID_EMAIL": "Please enter a valid email",
+    "MIN_LENGTH_PASSWORD": "Password must be at least 6 characters",
+    "REQUIRED_NAME": "Name is required",
+    "PASSWORDS_MISMATCH": "Passwords do not match"
+  }
+}

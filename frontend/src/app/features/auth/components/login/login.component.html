@@ -1,0 +1,53 @@
+<div class="flex min-h-screen items-center justify-center bg-gray-50">
+  <div class="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+    <h2 class="mb-6 text-center text-2xl font-bold text-gray-800">
+      {{ 'AUTH.LOGIN_TITLE' | translate }}
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="font-medium text-gray-700">{{ 'AUTH.EMAIL' | translate }}</label>
+        <input
+          type="email"
+          formControlName="email"
+          [placeholder]="'AUTH.EMAIL' | translate"
+          class="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @if (emailControl.dirty && emailControl.invalid) {
+          <small class="text-red-500">{{ 'VALIDATION.VALID_EMAIL' | translate }}</small>
+        }
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="font-medium text-gray-700">{{ 'AUTH.PASSWORD' | translate }}</label>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="••••••"
+          class="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @if (passwordControl.dirty && passwordControl.invalid) {
+          <small class="text-red-500">{{ 'VALIDATION.MIN_LENGTH_PASSWORD' | translate }}</small>
+        }
+      </div>
+
+      @if (errorMessage()) {
+        <div class="rounded bg-red-50 p-3 text-center text-sm text-red-600">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <button
+        type="submit"
+        [disabled]="loading()"
+        class="rounded bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+      >
+        {{ loading() ? ('AUTH.LOADING' | translate) : ('AUTH.LOGIN_BUTTON' | translate) }}
+      </button>
+
+      <a routerLink="/auth/register" class="text-center text-sm text-blue-600 hover:underline">
+        {{ 'AUTH.NO_ACCOUNT' | translate }}
+      </a>
+    </form>
+  </div>
+</div>

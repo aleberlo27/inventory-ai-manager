@@ -1,4 +1,7 @@
-// Minimal Jest setup for this project.
-// `jest-preset-angular`'s setup file isn't required for simple utility tests.
-// Keep this file present so `setupFilesAfterEnv` can reference it.
-export {};
+import { getTestBed } from '@angular/core/testing';
+import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
+
+// Angular 20 testing environment setup (zoneless — no zone.js imported)
+getTestBed().initTestEnvironment(BrowserTestingModule, platformBrowserTesting(), {
+  teardown: { destroyAfterEach: true },
+});
