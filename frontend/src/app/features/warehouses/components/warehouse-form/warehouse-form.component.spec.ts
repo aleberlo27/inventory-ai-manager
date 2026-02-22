@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
 import { of, throwError } from 'rxjs';
 import { provideTranslateService } from '@ngx-translate/core';
@@ -19,6 +19,7 @@ const mockWarehouse: Warehouse = {
 
 describe('WarehouseFormComponent', () => {
   let component: WarehouseFormComponent;
+  let fixture: ComponentFixture<WarehouseFormComponent>;
   let mockWarehouseService: { createWarehouse: jest.Mock; updateWarehouse: jest.Mock };
   let mockMessageService: { add: jest.Mock };
 
@@ -40,7 +41,7 @@ describe('WarehouseFormComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     });
 
-    const fixture = TestBed.createComponent(WarehouseFormComponent);
+    fixture = TestBed.createComponent(WarehouseFormComponent);
     component = fixture.componentInstance;
   });
 
@@ -82,8 +83,8 @@ describe('WarehouseFormComponent', () => {
 
   describe('Edit mode (warehouse is provided)', () => {
     beforeEach(() => {
-      component.warehouse = mockWarehouse;
-      component.ngOnChanges();
+      fixture.componentRef.setInput('warehouse', mockWarehouse);
+      fixture.detectChanges();
     });
 
     it('should be in edit mode when warehouse is provided', () => {

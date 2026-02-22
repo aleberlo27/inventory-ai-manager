@@ -1,5 +1,17 @@
-<div class="flex h-screen">
-  <main class="flex-1 overflow-auto p-4">
-    <router-outlet />
-  </main>
+<div class="flex h-screen flex-col">
+  <!-- Topbar fijo en la parte superior -->
+  <app-topbar class="flex-shrink-0" />
+
+  <!-- Área de contenido -->
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Contenido principal -->
+    <main class="flex-1 overflow-y-auto bg-gray-50 p-6">
+      <router-outlet />
+    </main>
+
+    <!-- AI Chat Sidebar (320px fijo) -->
+    <aside class="w-80 flex-shrink-0 overflow-hidden border-l border-gray-200 bg-white">
+      <app-ai-chat-sidebar />
+    </aside>
+  </div>
 </div>

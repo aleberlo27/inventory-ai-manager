@@ -1,10 +1,9 @@
 import {
   Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
+  effect,
   inject,
+  input,
+  output,
   signal,
 } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -24,11 +23,11 @@ import type { CreateWarehouseDto, Warehouse } from '@shared/types';
   imports: [ReactiveFormsModule, TranslatePipe, Button, Dialog, InputText, Textarea],
   templateUrl: 'warehouse-form.component.html',
 })
-export class WarehouseFormComponent implements OnChanges {
-  @Input() warehouse: Warehouse | null = null;
-  @Input() visible = false;
-  @Output() visibleChange = new EventEmitter<boolean>();
-  @Output() saved = new EventEmitter<Warehouse>();
+export class WarehouseFormComponent {
+  readonly warehouse = input<Warehouse | null>(null);
+  readonly visible = input<boolean>(false);
+  readonly visibleChange = output<boolean>();
+  readonly saved = output<Warehouse>();
 
   private readonly warehouseService = inject(WarehouseService);
   private readonly messageService = inject(MessageService);
@@ -42,8 +41,21 @@ export class WarehouseFormComponent implements OnChanges {
     description: ['', [Validators.maxLength(500)]],
   });
 
+  constructor() {
+    effect(() => {
+      const warehouse = this.warehouse();
+      if (warehouse) {
+        this.form.patchValue({
+          name: warehouse.name,
+          location: warehouse.location,
+          description: warehouse.description ?? '',
+        });
+      }
+    });
+  }
+
   get isEditMode(): boolean {
-    return this.warehouse !== null;
+    return this.warehouse() !== null;
   }
 
   get nameControl(): AbstractControl {
@@ -62,18 +74,6 @@ export class WarehouseFormComponent implements OnChanges {
     return (this.descriptionControl.value as string)?.length ?? 0;
   }
 
-  ngOnChanges(): void {
-    if (this.warehouse) {
-      this.form.patchValue({
-        name: this.warehouse.name,
-        location: this.warehouse.location,
-        description: this.warehouse.description ?? '',
-      });
-    } else {
-      this.form.reset();
-    }
-  }
-
   onClose(): void {
     this.visibleChange.emit(false);
     this.form.reset();
@@ -86,7 +86,7 @@ export class WarehouseFormComponent implements OnChanges {
     const formValue = this.form.value as CreateWarehouseDto;
 
     const request$ = this.isEditMode
-      ? this.warehouseService.updateWarehouse(this.warehouse!.id, formValue)
+      ? this.warehouseService.updateWarehouse(this.warehouse()!.id, formValue)
       : this.warehouseService.createWarehouse(formValue);
 
     request$.subscribe({

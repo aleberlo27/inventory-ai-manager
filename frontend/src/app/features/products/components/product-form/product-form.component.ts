@@ -1,16 +1,11 @@
+import { Component, effect, inject, input, output, signal } from '@angular/core';
 import {
   AbstractControl,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
+  FormBuilder,
+  ReactiveFormsModule,
   ValidationErrors,
-  ValidatorFn,
-  inject,
-  signal,
-} from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+  Validators,
+} from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { Button } from 'primeng/button';
@@ -46,12 +41,12 @@ export const UNIT_OPTIONS = [
   imports: [ReactiveFormsModule, TranslatePipe, Button, Dialog, InputText, InputNumber, Select],
   templateUrl: 'product-form.component.html',
 })
-export class ProductFormComponent implements OnChanges {
-  @Input() product: Product | null = null;
-  @Input() warehouseId!: string;
-  @Input() visible = false;
-  @Output() visibleChange = new EventEmitter<boolean>();
-  @Output() saved = new EventEmitter<Product>();
+export class ProductFormComponent {
+  readonly product = input<Product | null>(null);
+  readonly warehouseId = input.required<string>();
+  readonly visible = input<boolean>(false);
+  readonly visibleChange = output<boolean>();
+  readonly saved = output<Product>();
 
   private readonly productService = inject(ProductService);
   private readonly messageService = inject(MessageService);
@@ -69,27 +64,28 @@ export class ProductFormComponent implements OnChanges {
     minStock: [5, [Validators.min(0)]],
   });
 
+  constructor() {
+    effect(() => {
+      const product = this.product();
+      if (product) {
+        this.form.patchValue({
+          name: product.name,
+          sku: product.sku,
+          quantity: product.quantity,
+          unit: product.unit,
+          category: product.category ?? '',
+          minStock: product.minStock,
+        });
+      }
+    });
+  }
+
   get isEditMode(): boolean {
-    return this.product !== null;
+    return this.product() !== null;
   }
 
   toUppercase(value: string): string {
     return value.toUpperCase();
-  }
-
-  ngOnChanges(): void {
-    if (this.product) {
-      this.form.patchValue({
-        name: this.product.name,
-        sku: this.product.sku,
-        quantity: this.product.quantity,
-        unit: this.product.unit,
-        category: this.product.category ?? '',
-        minStock: this.product.minStock,
-      });
-    } else {
-      this.form.reset({ quantity: 0, minStock: 5 });
-    }
   }
 
   onSkuInput(event: Event): void {
@@ -111,8 +107,8 @@ export class ProductFormComponent implements OnChanges {
     const formValue = this.form.value as CreateProductDto;
 
     const request$ = this.isEditMode
-      ? this.productService.updateProduct(this.product!.id, formValue)
-      : this.productService.createProduct(this.warehouseId, formValue);
+      ? this.productService.updateProduct(this.product()!.id, formValue)
+      : this.productService.createProduct(this.warehouseId(), formValue);
 
     request$.subscribe({
       next: product => {

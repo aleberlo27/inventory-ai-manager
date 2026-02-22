@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Button } from 'primeng/button';
@@ -14,20 +14,20 @@ import type { Warehouse } from '@shared/types';
   templateUrl: 'warehouse-card.component.html',
 })
 export class WarehouseCardComponent {
-  @Input({ required: true }) warehouse!: Warehouse;
-  @Output() edit = new EventEmitter<Warehouse>();
-  @Output() delete = new EventEmitter<Warehouse>();
-  @Output() view = new EventEmitter<string>();
+  readonly warehouse = input.required<Warehouse>();
+  readonly edit = output<Warehouse>();
+  readonly delete = output<Warehouse>();
+  readonly view = output<string>();
 
   onEdit(): void {
-    this.edit.emit(this.warehouse);
+    this.edit.emit(this.warehouse());
   }
 
   onDelete(): void {
-    this.delete.emit(this.warehouse);
+    this.delete.emit(this.warehouse());
   }
 
   onView(): void {
-    this.view.emit(this.warehouse.id);
+    this.view.emit(this.warehouse().id);
   }
 }

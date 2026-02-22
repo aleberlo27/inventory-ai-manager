@@ -111,5 +111,29 @@
   "STOCK_ALERT": {
     "EMPTY_PRODUCTS": "{count} producto(s) sin stock",
     "LOW_STOCK_PRODUCTS": "{count} producto(s) con stock bajo"
+  },
+  "APP": {
+    "TITLE": "Inventory AI",
+    "TAGLINE": "Gestión inteligente de inventario"
+  },
+  "TOPBAR": {
+    "WAREHOUSES": "Almacenes",
+    "PROFILE": "Mi Perfil",
+    "LOGOUT": "Cerrar Sesión"
+  },
+  "AI_CHAT": {
+    "COMING_SOON": "Chat de IA próximamente..."
+  },
+  "BREADCRUMB": {
+    "WAREHOUSE_DETAIL": "Almacén",
+    "PROFILE": "Mi Perfil"
+  },
+  "NOT_FOUND": {
+    "TITLE": "Página no encontrada",
+    "DESCRIPTION": "La página que buscas no existe o ha sido movida.",
+    "BACK_BUTTON": "Volver al inicio"
+  },
+  "PROFILE": {
+    "TITLE": "Mi Perfil"
   }
 }

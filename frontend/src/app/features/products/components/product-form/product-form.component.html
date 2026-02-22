@@ -1,6 +1,6 @@
 <p-dialog
   [header]="(isEditMode ? 'PRODUCT.EDIT_TITLE' : 'PRODUCT.NEW_TITLE') | translate"
-  [(visible)]="visible"
+  [visible]="visible()"
   [modal]="true"
   [closable]="true"
   [style]="{ width: '500px' }"

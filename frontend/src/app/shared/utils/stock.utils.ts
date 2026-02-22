@@ -17,10 +17,10 @@ export function getStockStatusLabel(status: StockStatus): string {
 
 export function getStockStatusSeverity(
   status: StockStatus,
-): 'danger' | 'warning' | 'success' {
-  const severities: Record<StockStatus, 'danger' | 'warning' | 'success'> = {
+): 'danger' | 'warn' | 'success' {
+  const severities: Record<StockStatus, 'danger' | 'warn' | 'success'> = {
     empty: 'danger',
-    low: 'warning',
+    low: 'warn',
     ok: 'success',
   };
   return severities[status];
