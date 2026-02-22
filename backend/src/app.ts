@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
+import warehouseRoutes from './routes/warehouse.routes';
 import { errorMiddleware } from './middleware/error.middleware';
 
 dotenv.config();
@@ -16,6 +17,7 @@ app.get('/health', (_req, res) => {
 });
 
 app.use('/auth', authRoutes);
+app.use('/warehouses', warehouseRoutes);
 
 app.use(errorMiddleware);
 
