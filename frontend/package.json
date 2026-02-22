@@ -14,8 +14,7 @@
     "lint": "ng lint",
     "typecheck": "tsc --noEmit",
     "quality": "npm run lint && npm run typecheck && npm run test",
-    "verify": "npm run quality && npm run test:e2e && npm run build",
-    "serve:ssr:frontend": "node dist/frontend/server/server.mjs"
+    "verify": "npm run quality && npm run test:e2e && npm run build"
   },
   "prettier": {
     "printWidth": 100,
@@ -38,7 +37,6 @@
     "@angular/platform-browser": "^20.1.0",
     "@angular/platform-server": "^20.1.0",
     "@angular/router": "^20.1.0",
-    "@angular/ssr": "^20.1.6",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "express": "^5.1.0",
