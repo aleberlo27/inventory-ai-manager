@@ -5,6 +5,9 @@ const config: Config = {
   testEnvironment: 'node',
   testMatch: ['**/tests/**/*.test.ts'],
   collectCoverageFrom: ['src/**/*.ts', '!src/app.ts', '!src/server.ts'],
+  transform: {
+    '^.+\\.ts$': ['ts-jest', { tsconfig: './tsconfig.test.json' }],
+  },
 };
 
 export default config;
