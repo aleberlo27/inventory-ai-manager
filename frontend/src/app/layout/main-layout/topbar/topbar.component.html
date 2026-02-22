@@ -1,3 +1,31 @@
-<header class="flex items-center justify-between border-b border-gray-200 bg-white px-6 py-3">
-  <span class="text-xl font-bold">Inventory AI</span>
-</header>
+<p-toolbar [style]="{ border: 'none' }">
+  <ng-template pTemplate="start">
+    <div class="flex items-center gap-3">
+      <span class="text-xl font-bold text-primary-600">Inventory AI</span>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="center">
+    <nav class="flex gap-1">
+      <p-button
+        [label]="'TOPBAR.WAREHOUSES' | translate"
+        routerLink="/app/warehouses"
+        [text]="true"
+        icon="pi pi-building"
+      />
+    </nav>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <div class="flex items-center gap-3">
+      <span class="text-sm text-gray-600">{{ currentUser()?.name }}</span>
+      <p-avatar
+        [label]="userInitials()"
+        class="cursor-pointer"
+        shape="circle"
+        (click)="userMenu.toggle($event)"
+      />
+      <p-menu #userMenu [popup]="true" [model]="menuItems" />
+    </div>
+  </ng-template>
+</p-toolbar>

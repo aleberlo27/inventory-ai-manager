@@ -1,18 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection, signal } from '@angular/core';
+import { Router, provideRouter } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 
 import { MainLayoutComponent } from './main-layout.component';
+import { AuthService } from '../../features/auth/services/auth.service';
 
 describe('MainLayoutComponent', () => {
   let fixture: ComponentFixture<MainLayoutComponent>;
   let compiled: HTMLElement;
 
   beforeEach(() => {
+    const mockAuthService = {
+      currentUser: signal(null),
+      logout: jest.fn(),
+    };
+
     TestBed.configureTestingModule({
       imports: [MainLayoutComponent],
       providers: [
+        { provide: AuthService, useValue: mockAuthService },
+        { provide: Router, useValue: { navigate: jest.fn(), url: '/', events: { pipe: jest.fn() } } },
         provideRouter([]),
         provideZonelessChangeDetection(),
         provideTranslateService({ fallbackLang: 'es' }),
