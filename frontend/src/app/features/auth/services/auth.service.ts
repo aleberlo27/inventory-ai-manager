@@ -46,6 +46,11 @@ export class AuthService {
     return localStorage.getItem(APP_CONSTANTS.TOKEN_KEY);
   }
 
+  updateCurrentUser(user: User): void {
+    localStorage.setItem(APP_CONSTANTS.USER_KEY, JSON.stringify(user));
+    this.currentUserSignal.set(user);
+  }
+
   private saveSession(auth: AuthResponse): void {
     localStorage.setItem(APP_CONSTANTS.TOKEN_KEY, auth.token);
     localStorage.setItem(APP_CONSTANTS.USER_KEY, JSON.stringify(auth.user));

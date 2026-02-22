@@ -21,3 +21,8 @@ export interface AuthResponse {
   user: User;
   token: string;
 }
+
+export interface UpdateProfileDto {
+  name?: string;
+  email?: string;
+}
