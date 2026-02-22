@@ -5,12 +5,6 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-main-layout',
   standalone: true,
   imports: [RouterOutlet],
-  template: `
-    <div class="flex h-screen">
-      <main class="flex-1 overflow-auto p-4">
-        <router-outlet />
-      </main>
-    </div>
-  `,
+  templateUrl: 'main-layout.component.html',
 })
 export class MainLayoutComponent {}

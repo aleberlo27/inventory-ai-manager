@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { of, throwError } from 'rxjs';
+import { provideTranslateService } from '@ngx-translate/core';
 
 import { LoginComponent } from './login.component';
 import { AuthService } from '../../services/auth.service';
@@ -21,6 +22,7 @@ describe('LoginComponent', () => {
         { provide: AuthService, useValue: mockAuthService },
         provideRouter([]),
         provideZonelessChangeDetection(),
+        provideTranslateService({ fallbackLang: 'es' }),
       ],
     });
 

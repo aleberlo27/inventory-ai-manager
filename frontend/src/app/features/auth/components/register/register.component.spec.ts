@@ -3,6 +3,7 @@ import { provideRouter, Router } from '@angular/router';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { of, throwError } from 'rxjs';
 import { AbstractControl } from '@angular/forms';
+import { provideTranslateService } from '@ngx-translate/core';
 
 import { RegisterComponent, passwordMatchValidator } from './register.component';
 import { AuthService } from '../../services/auth.service';
@@ -43,6 +44,7 @@ describe('RegisterComponent', () => {
         { provide: AuthService, useValue: mockAuthService },
         provideRouter([]),
         provideZonelessChangeDetection(),
+        provideTranslateService({ fallbackLang: 'es' }),
       ],
     });
 

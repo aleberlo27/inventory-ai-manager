@@ -45,6 +45,51 @@ Anthropic API (Claude) — llamada SIEMPRE desde el backend, nunca exponer la AP
 
 ---
 
+## Frontend Global Rules
+
+### 1. Component Structure — ALWAYS two files
+Every Angular component MUST have two separate files:
+- `component.ts` with `templateUrl` pointing to the HTML file (NEVER inline `template`)
+- `component.html` with the template
+
+```typescript
+// CORRECT
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [...],
+  templateUrl: 'example.component.html',
+})
+// WRONG — never use inline template
+@Component({ template: `<div>...</div>` })
+```
+
+### 2. Internationalization (i18n) with @ngx-translate — MANDATORY
+- ALL visible text in templates MUST use `{{ 'KEY' | translate }}` (via `TranslatePipe`)
+- Import `TranslatePipe` in each standalone component's `imports` array
+- Add keys to BOTH `public/i18n/es.json` and `public/i18n/en.json`
+- Key naming convention: `FEATURE.KEY_NAME` (e.g. `AUTH.LOGIN_TITLE`, `VALIDATION.VALID_EMAIL`)
+- Never hardcode user-visible strings in templates
+
+```typescript
+// In component imports:
+imports: [ReactiveFormsModule, TranslatePipe]
+```
+```html
+<!-- In template: -->
+<h1>{{ 'AUTH.LOGIN_TITLE' | translate }}</h1>
+```
+
+### 3. TranslatePipe in tests
+When a component imports `TranslatePipe`, add to `TestBed` providers:
+```typescript
+import { provideTranslateService } from '@ngx-translate/core';
+// in providers:
+provideTranslateService({ fallbackLang: 'es' }),
+```
+
+---
+
 ## File Organization (Scope Rule)
 
 - `src/app/shared/` → usado por múltiples features
