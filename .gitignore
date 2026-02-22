@@ -13,6 +13,9 @@ node_modules/
 dist/
 dist-test/
 
+# Prisma generated client
+backend/src/generated/
+
 # Angular cache
 .angular/
 
