@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
 import { provideTranslateService } from '@ngx-translate/core';
 
@@ -40,6 +40,7 @@ const mockProducts: Product[] = [
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
+  let fixture: ComponentFixture<ProductListComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -51,10 +52,10 @@ describe('ProductListComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     });
 
-    const fixture = TestBed.createComponent(ProductListComponent);
+    fixture = TestBed.createComponent(ProductListComponent);
     component = fixture.componentInstance;
-    component.products = mockProducts;
-    component.warehouseId = 'wh-1';
+    fixture.componentRef.setInput('products', mockProducts);
+    fixture.componentRef.setInput('warehouseId', 'wh-1');
   });
 
   describe('filteredProducts', () => {
@@ -104,7 +105,7 @@ describe('ProductListComponent', () => {
     });
 
     it('should return correct severity for low status', () => {
-      expect(component.getStockSeverity(mockProducts[1])).toBe('warning');
+      expect(component.getStockSeverity(mockProducts[1])).toBe('warn');
     });
 
     it('should return correct severity for empty status', () => {

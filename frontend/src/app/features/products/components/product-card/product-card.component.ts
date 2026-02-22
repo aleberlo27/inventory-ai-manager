@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output, computed, signal } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
+import { Component, computed, input, output } from '@angular/core';
 import { Tag } from 'primeng/tag';
 import { Button } from 'primeng/button';
 
@@ -13,24 +12,16 @@ import type { Product, StockStatus } from '@shared/types';
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [ Tag, Button],
+  imports: [Tag, Button],
   templateUrl: 'product-card.component.html',
 })
 export class ProductCardComponent {
-  private readonly _product = signal<Product>({} as Product);
-
-  @Input() set product(value: Product) {
-    this._product.set(value);
-  }
-  get product(): Product {
-    return this._product();
-  }
-
-  @Output() edit = new EventEmitter<Product>();
-  @Output() delete = new EventEmitter<Product>();
+  readonly product = input<Product>({} as Product);
+  readonly edit = output<Product>();
+  readonly delete = output<Product>();
 
   stockStatus = computed<StockStatus>(() =>
-    getStockStatus(this._product().quantity, this._product().minStock),
+    getStockStatus(this.product().quantity, this.product().minStock),
   );
 
   statusLabel = computed(() => getStockStatusLabel(this.stockStatus()));
@@ -40,10 +31,10 @@ export class ProductCardComponent {
   );
 
   onEdit(): void {
-    this.edit.emit(this._product());
+    this.edit.emit(this.product());
   }
 
   onDelete(): void {
-    this.delete.emit(this._product());
+    this.delete.emit(this.product());
   }
 }

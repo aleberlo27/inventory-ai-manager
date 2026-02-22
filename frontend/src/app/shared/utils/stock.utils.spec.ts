@@ -45,8 +45,8 @@ describe('getStockStatusSeverity', () => {
     expect(getStockStatusSeverity('empty')).toBe('danger');
   });
 
-  it('should return "warning" for low', () => {
-    expect(getStockStatusSeverity('low')).toBe('warning');
+  it('should return "warn" for low', () => {
+    expect(getStockStatusSeverity('low')).toBe('warn');
   });
 
   it('should return "success" for ok', () => {

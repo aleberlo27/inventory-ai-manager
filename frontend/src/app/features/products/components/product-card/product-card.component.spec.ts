@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
 import { provideTranslateService } from '@ngx-translate/core';
 
@@ -22,6 +22,7 @@ const emptyStockProduct: Product = { ...mockProduct, quantity: 0, minStock: 5 };
 
 describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
+  let fixture: ComponentFixture<ProductCardComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -33,73 +34,73 @@ describe('ProductCardComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     });
 
-    const fixture = TestBed.createComponent(ProductCardComponent);
+    fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
-    component.product = mockProduct;
+    fixture.componentRef.setInput('product', mockProduct);
   });
 
   describe('product data', () => {
     it('should have the product name accessible', () => {
-      expect(component.product.name).toBe('Test Product');
+      expect(component.product().name).toBe('Test Product');
     });
 
     it('should have the product SKU accessible', () => {
-      expect(component.product.sku).toBe('PROD-001');
+      expect(component.product().sku).toBe('PROD-001');
     });
 
     it('should have the correct quantity and unit', () => {
-      expect(component.product.quantity).toBe(10);
-      expect(component.product.unit).toBe('unidades');
+      expect(component.product().quantity).toBe(10);
+      expect(component.product().unit).toBe('unidades');
     });
   });
 
   describe('stockStatus computed', () => {
     it('should return ok when quantity is above minStock', () => {
-      component.product = mockProduct;
+      fixture.componentRef.setInput('product', mockProduct);
       expect(component.stockStatus()).toBe('ok');
     });
 
     it('should return low when quantity is at or below minStock', () => {
-      component.product = lowStockProduct;
+      fixture.componentRef.setInput('product', lowStockProduct);
       expect(component.stockStatus()).toBe('low');
     });
 
     it('should return empty when quantity is 0', () => {
-      component.product = emptyStockProduct;
+      fixture.componentRef.setInput('product', emptyStockProduct);
       expect(component.stockStatus()).toBe('empty');
     });
   });
 
   describe('statusLabel computed', () => {
     it('should return "En stock" for ok status', () => {
-      component.product = mockProduct;
+      fixture.componentRef.setInput('product', mockProduct);
       expect(component.statusLabel()).toBe('En stock');
     });
 
     it('should return "Stock bajo" for low status', () => {
-      component.product = lowStockProduct;
+      fixture.componentRef.setInput('product', lowStockProduct);
       expect(component.statusLabel()).toBe('Stock bajo');
     });
 
     it('should return "Sin stock" for empty status', () => {
-      component.product = emptyStockProduct;
+      fixture.componentRef.setInput('product', emptyStockProduct);
       expect(component.statusLabel()).toBe('Sin stock');
     });
   });
 
   describe('statusSeverity computed', () => {
     it('should return success for ok status', () => {
-      component.product = mockProduct;
+      fixture.componentRef.setInput('product', mockProduct);
       expect(component.statusSeverity()).toBe('success');
     });
 
-    it('should return warning for low status', () => {
-      component.product = lowStockProduct;
-      expect(component.statusSeverity()).toBe('warning');
+    it('should return warn for low status', () => {
+      fixture.componentRef.setInput('product', lowStockProduct);
+      expect(component.statusSeverity()).toBe('warn');
     });
 
     it('should return danger for empty status', () => {
-      component.product = emptyStockProduct;
+      fixture.componentRef.setInput('product', emptyStockProduct);
       expect(component.statusSeverity()).toBe('danger');
     });
   });

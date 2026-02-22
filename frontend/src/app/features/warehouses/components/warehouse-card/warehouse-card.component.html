@@ -1,10 +1,10 @@
 <p-card styleClass="h-full">
   <ng-template #header>
     <div class="flex items-center justify-between px-4 pt-4">
-      <h3 class="text-lg font-semibold text-gray-800">{{ warehouse.name }}</h3>
+      <h3 class="text-lg font-semibold text-gray-800">{{ warehouse().name }}</h3>
       <p-badge
-        [value]="(warehouse.productCount ?? 0).toString()"
-        [severity]="(warehouse.productCount ?? 0) > 0 ? 'success' : 'secondary'"
+        [value]="(warehouse().productCount ?? 0).toString()"
+        [severity]="(warehouse().productCount ?? 0) > 0 ? 'success' : 'secondary'"
         data-testid="product-count"
       />
     </div>
@@ -13,16 +13,16 @@
   <div class="flex flex-col gap-2">
     <div class="flex items-center gap-1 text-sm text-gray-600">
       <i class="pi pi-map-marker"></i>
-      <span data-testid="location">{{ warehouse.location }}</span>
+      <span data-testid="location">{{ warehouse().location }}</span>
     </div>
-    @if (warehouse.description) {
-      <p class="line-clamp-2 text-sm text-gray-500">{{ warehouse.description }}</p>
+    @if (warehouse().description) {
+      <p class="line-clamp-2 text-sm text-gray-500">{{ warehouse().description }}</p>
     } @else {
       <p class="text-sm text-gray-400 italic">{{ 'WAREHOUSE.NO_DESCRIPTION' | translate }}</p>
     }
     <p class="text-xs text-gray-400">
       {{ 'WAREHOUSE.CREATED_AT' | translate }}
-      {{ warehouse.createdAt | date: 'dd/MM/yyyy' }}
+      {{ warehouse().createdAt | date: 'dd/MM/yyyy' }}
     </p>
   </div>
 

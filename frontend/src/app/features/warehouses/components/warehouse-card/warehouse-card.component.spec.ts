@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
 import { provideTranslateService } from '@ngx-translate/core';
 
@@ -16,6 +16,7 @@ const mockWarehouse: Warehouse = {
 
 describe('WarehouseCardComponent', () => {
   let component: WarehouseCardComponent;
+  let fixture: ComponentFixture<WarehouseCardComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -24,26 +25,26 @@ describe('WarehouseCardComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     });
 
-    const fixture = TestBed.createComponent(WarehouseCardComponent);
+    fixture = TestBed.createComponent(WarehouseCardComponent);
     component = fixture.componentInstance;
-    component.warehouse = mockWarehouse;
+    fixture.componentRef.setInput('warehouse', mockWarehouse);
   });
 
   it('should have the warehouse name accessible', () => {
-    expect(component.warehouse.name).toBe('Main Warehouse');
+    expect(component.warehouse().name).toBe('Main Warehouse');
   });
 
   it('should have the warehouse location accessible', () => {
-    expect(component.warehouse.location).toBe('Madrid');
+    expect(component.warehouse().location).toBe('Madrid');
   });
 
   it('should show the correct product count', () => {
-    expect(component.warehouse.productCount).toBe(5);
+    expect(component.warehouse().productCount).toBe(5);
   });
 
   it('should show zero product count when productCount is undefined', () => {
-    component.warehouse = { ...mockWarehouse, productCount: undefined };
-    expect(component.warehouse.productCount).toBeUndefined();
+    fixture.componentRef.setInput('warehouse', { ...mockWarehouse, productCount: undefined });
+    expect(component.warehouse().productCount).toBeUndefined();
   });
 
   it('should emit edit event with the warehouse when onEdit is called', () => {

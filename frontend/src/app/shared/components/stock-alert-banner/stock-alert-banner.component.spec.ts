@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
 import { provideTranslateService } from '@ngx-translate/core';
 
@@ -40,6 +40,7 @@ const emptyProduct: Product = {
 
 describe('StockAlertBannerComponent', () => {
   let component: StockAlertBannerComponent;
+  let fixture: ComponentFixture<StockAlertBannerComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -51,54 +52,54 @@ describe('StockAlertBannerComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     });
 
-    const fixture = TestBed.createComponent(StockAlertBannerComponent);
+    fixture = TestBed.createComponent(StockAlertBannerComponent);
     component = fixture.componentInstance;
   });
 
   describe('hasAlerts', () => {
     it('should return false when all products have ok stock', () => {
-      component.products = [okProduct];
+      fixture.componentRef.setInput('products', [okProduct]);
       expect(component.hasAlerts()).toBe(false);
     });
 
     it('should return true when there are low-stock products', () => {
-      component.products = [okProduct, lowProduct];
+      fixture.componentRef.setInput('products', [okProduct, lowProduct]);
       expect(component.hasAlerts()).toBe(true);
     });
 
     it('should return true when there are out-of-stock products', () => {
-      component.products = [okProduct, emptyProduct];
+      fixture.componentRef.setInput('products', [okProduct, emptyProduct]);
       expect(component.hasAlerts()).toBe(true);
     });
 
     it('should return false when products list is empty', () => {
-      component.products = [];
+      fixture.componentRef.setInput('products', []);
       expect(component.hasAlerts()).toBe(false);
     });
   });
 
   describe('lowStockProducts', () => {
     it('should return only products with low stock', () => {
-      component.products = [okProduct, lowProduct, emptyProduct];
+      fixture.componentRef.setInput('products', [okProduct, lowProduct, emptyProduct]);
       expect(component.lowStockProducts()).toHaveLength(1);
       expect(component.lowStockProducts()[0].id).toBe('prod-2');
     });
 
     it('should return empty array when no products have low stock', () => {
-      component.products = [okProduct, emptyProduct];
+      fixture.componentRef.setInput('products', [okProduct, emptyProduct]);
       expect(component.lowStockProducts()).toHaveLength(0);
     });
   });
 
   describe('emptyProducts', () => {
     it('should return only products with zero stock', () => {
-      component.products = [okProduct, lowProduct, emptyProduct];
+      fixture.componentRef.setInput('products', [okProduct, lowProduct, emptyProduct]);
       expect(component.emptyProducts()).toHaveLength(1);
       expect(component.emptyProducts()[0].id).toBe('prod-3');
     });
 
     it('should return empty array when no products are out of stock', () => {
-      component.products = [okProduct, lowProduct];
+      fixture.componentRef.setInput('products', [okProduct, lowProduct]);
       expect(component.emptyProducts()).toHaveLength(0);
     });
   });
@@ -106,13 +107,13 @@ describe('StockAlertBannerComponent', () => {
   describe('alert counts', () => {
     it('should correctly count multiple low-stock products', () => {
       const anotherLow: Product = { ...lowProduct, id: 'prod-4', sku: 'LOW-002' };
-      component.products = [okProduct, lowProduct, anotherLow];
+      fixture.componentRef.setInput('products', [okProduct, lowProduct, anotherLow]);
       expect(component.lowStockProducts()).toHaveLength(2);
     });
 
     it('should correctly count multiple out-of-stock products', () => {
       const anotherEmpty: Product = { ...emptyProduct, id: 'prod-5', sku: 'EMPTY-002' };
-      component.products = [okProduct, emptyProduct, anotherEmpty];
+      fixture.componentRef.setInput('products', [okProduct, emptyProduct, anotherEmpty]);
       expect(component.emptyProducts()).toHaveLength(2);
     });
   });

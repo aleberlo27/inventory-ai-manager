@@ -1,6 +1,6 @@
 <p-dialog
   [header]="(isEditMode ? 'WAREHOUSE.EDIT_TITLE' : 'WAREHOUSE.NEW_TITLE') | translate"
-  [visible]="visible"
+  [visible]="visible()"
   (visibleChange)="visibleChange.emit($event)"
   [modal]="true"
   [style]="{ width: '500px' }"

@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
 import { of, throwError } from 'rxjs';
 import { provideTranslateService } from '@ngx-translate/core';
@@ -59,6 +59,7 @@ describe('skuValidator', () => {
 
 describe('ProductFormComponent', () => {
   let component: ProductFormComponent;
+  let fixture: ComponentFixture<ProductFormComponent>;
   let mockProductService: { createProduct: jest.Mock; updateProduct: jest.Mock };
   let mockMessageService: { add: jest.Mock };
 
@@ -80,9 +81,9 @@ describe('ProductFormComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     });
 
-    const fixture = TestBed.createComponent(ProductFormComponent);
+    fixture = TestBed.createComponent(ProductFormComponent);
     component = fixture.componentInstance;
-    component.warehouseId = 'wh-1';
+    fixture.componentRef.setInput('warehouseId', 'wh-1');
   });
 
   describe('Create mode (product is null)', () => {
@@ -122,8 +123,8 @@ describe('ProductFormComponent', () => {
 
   describe('Edit mode (product is provided)', () => {
     beforeEach(() => {
-      component.product = mockProduct;
-      component.ngOnChanges();
+      fixture.componentRef.setInput('product', mockProduct);
+      fixture.detectChanges();
     });
 
     it('should be in edit mode when product is provided', () => {

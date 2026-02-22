@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, computed, signal } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Tag } from 'primeng/tag';
 import { Button } from 'primeng/button';
@@ -11,30 +11,27 @@ import {
   getStockStatusSeverity,
 } from '@shared/utils/stock.utils';
 import type { Product, StockStatus } from '@shared/types';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [TranslatePipe, Tag, Button, InputText, TableModule],
+  imports: [TranslatePipe, Tag, Button, InputText, TableModule, CommonModule],
   templateUrl: 'product-list.component.html',
 })
 export class ProductListComponent {
-  private readonly _products = signal<Product[]>([]);
-
-  @Input() set products(value: Product[]) {
-    this._products.set(value);
-  }
-  @Input() warehouseId!: string;
-  @Output() edit = new EventEmitter<Product>();
-  @Output() delete = new EventEmitter<Product>();
-  @Output() add = new EventEmitter<void>();
+  readonly products = input<Product[]>([]);
+  readonly warehouseId = input.required<string>();
+  readonly edit = output<Product>();
+  readonly delete = output<Product>();
+  readonly add = output<void>();
 
   filterValue = signal('');
 
   filteredProducts = computed(() => {
     const query = this.filterValue().toLowerCase();
-    if (!query) return this._products();
-    return this._products().filter(
+    if (!query) return this.products();
+    return this.products().filter(
       p =>
         p.name.toLowerCase().includes(query) || p.sku.toLowerCase().includes(query),
     );
@@ -48,7 +45,7 @@ export class ProductListComponent {
     return getStockStatusLabel(this.getStockStatus(product));
   }
 
-  getStockSeverity(product: Product): 'success' | 'warning' | 'danger' {
+  getStockSeverity(product: Product): 'success' | 'warn' | 'danger' {
     return getStockStatusSeverity(this.getStockStatus(product));
   }
 
