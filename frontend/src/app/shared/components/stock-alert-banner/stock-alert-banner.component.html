@@ -1,0 +1,16 @@
+@if (hasAlerts()) {
+  <div class="flex flex-col gap-2">
+    @if (emptyProducts().length > 0) {
+      <div class="flex items-center gap-2 rounded border border-red-300 bg-red-50 px-4 py-3 text-red-700">
+        <i class="pi pi-times-circle"></i>
+        <span>{{ emptyProducts().length }} {{ 'STOCK_ALERT.EMPTY_PRODUCTS' | translate }}</span>
+      </div>
+    }
+    @if (lowStockProducts().length > 0) {
+      <div class="flex items-center gap-2 rounded border border-yellow-300 bg-yellow-50 px-4 py-3 text-yellow-700">
+        <i class="pi pi-exclamation-triangle"></i>
+        <span>{{ lowStockProducts().length }} {{ 'STOCK_ALERT.LOW_STOCK_PRODUCTS' | translate }}</span>
+      </div>
+    }
+  </div>
+}
