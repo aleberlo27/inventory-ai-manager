@@ -1,0 +1,23 @@
+# Documentación privada del proyecto
+docs/
+
+# Variables de entorno (nunca subir)
+.env
+.env.local
+.env.production
+
+# Dependencias
+node_modules/
+
+# Build
+dist/
+
+# Angular cache
+.angular/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
