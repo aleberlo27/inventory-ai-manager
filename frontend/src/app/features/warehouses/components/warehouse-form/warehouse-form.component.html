@@ -1,0 +1,94 @@
+<p-dialog
+  [header]="(isEditMode ? 'WAREHOUSE.EDIT_TITLE' : 'WAREHOUSE.NEW_TITLE') | translate"
+  [visible]="visible"
+  (visibleChange)="visibleChange.emit($event)"
+  [modal]="true"
+  [style]="{ width: '500px' }"
+  [closable]="true"
+>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 pt-2">
+    <div class="flex flex-col gap-1">
+      <label class="font-medium text-gray-700">{{ 'WAREHOUSE.NAME_LABEL' | translate }}</label>
+      <input
+        pInputText
+        type="text"
+        formControlName="name"
+        [placeholder]="'WAREHOUSE.NAME_LABEL' | translate"
+        class="w-full"
+        data-testid="name-input"
+      />
+      @if (nameControl.dirty && nameControl.invalid) {
+        <small class="text-red-500">
+          @if (nameControl.hasError('required')) {
+            {{ 'VALIDATION.REQUIRED' | translate }}
+          } @else if (nameControl.hasError('minlength')) {
+            {{ 'VALIDATION.MIN_LENGTH_2' | translate }}
+          } @else if (nameControl.hasError('maxlength')) {
+            {{ 'VALIDATION.MAX_LENGTH_100' | translate }}
+          }
+        </small>
+      }
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="font-medium text-gray-700">{{ 'WAREHOUSE.LOCATION_LABEL' | translate }}</label>
+      <input
+        pInputText
+        type="text"
+        formControlName="location"
+        [placeholder]="'WAREHOUSE.LOCATION_LABEL' | translate"
+        class="w-full"
+        data-testid="location-input"
+      />
+      @if (locationControl.dirty && locationControl.invalid) {
+        <small class="text-red-500">
+          @if (locationControl.hasError('required')) {
+            {{ 'VALIDATION.REQUIRED' | translate }}
+          } @else if (locationControl.hasError('minlength')) {
+            {{ 'VALIDATION.MIN_LENGTH_2' | translate }}
+          } @else if (locationControl.hasError('maxlength')) {
+            {{ 'VALIDATION.MAX_LENGTH_200' | translate }}
+          }
+        </small>
+      }
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="font-medium text-gray-700">
+        {{ 'WAREHOUSE.DESCRIPTION_LABEL' | translate }}
+      </label>
+      <textarea
+        pTextarea
+        formControlName="description"
+        rows="3"
+        [placeholder]="'WAREHOUSE.DESCRIPTION_LABEL' | translate"
+        class="w-full"
+        data-testid="description-input"
+      ></textarea>
+      <small class="text-gray-400">
+        {{ descriptionLength }} / 500 {{ 'WAREHOUSE.CHARS_REMAINING' | translate }}
+      </small>
+      @if (descriptionControl.dirty && descriptionControl.hasError('maxlength')) {
+        <small class="text-red-500">{{ 'VALIDATION.MAX_LENGTH_500' | translate }}</small>
+      }
+    </div>
+  </form>
+
+  <ng-template #footer>
+    <div class="flex justify-end gap-2">
+      <p-button
+        [label]="'WAREHOUSE.CANCEL_BUTTON' | translate"
+        severity="secondary"
+        (onClick)="onClose()"
+        data-testid="cancel-btn"
+      />
+      <p-button
+        [label]="loading() ? ('WAREHOUSE.SAVING' | translate) : ('WAREHOUSE.SAVE_BUTTON' | translate)"
+        icon="pi pi-save"
+        [disabled]="form.invalid || loading()"
+        (onClick)="onSubmit()"
+        data-testid="save-btn"
+      />
+    </div>
+  </ng-template>
+</p-dialog>

@@ -23,7 +23,13 @@ export const routes: Routes = [
     path: 'app',
     component: MainLayoutComponent,
     canActivate: [authGuard],
-    children: [],
+    children: [
+      {
+        path: 'warehouses',
+        loadChildren: () =>
+          import('./features/warehouses/warehouses.routes').then(m => m.warehouseRoutes),
+      },
+    ],
   },
   { path: '**', redirectTo: '/auth/login' },
 ];

@@ -1,0 +1,46 @@
+<p-toast />
+<p-confirmDialog />
+
+<div class="p-6">
+  <div class="mb-6 flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-gray-800">{{ 'WAREHOUSE.TITLE' | translate }}</h1>
+    <p-button
+      [label]="'WAREHOUSE.NEW_BUTTON' | translate"
+      icon="pi pi-plus"
+      (onClick)="openCreateDialog()"
+      data-testid="new-warehouse-btn"
+    />
+  </div>
+
+  @if (loading()) {
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      @for (_ of [1, 2, 3]; track $index) {
+        <p-skeleton height="180px" borderRadius="8px" />
+      }
+    </div>
+  } @else if (warehouses().length === 0) {
+    <div class="flex flex-col items-center justify-center py-16 text-center" data-testid="empty-state">
+      <i class="pi pi-warehouse mb-4 text-6xl text-gray-300"></i>
+      <h2 class="mb-2 text-xl font-semibold text-gray-500">{{ 'WAREHOUSE.EMPTY_TITLE' | translate }}</h2>
+      <p class="text-gray-400">{{ 'WAREHOUSE.EMPTY_MESSAGE' | translate }}</p>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      @for (warehouse of warehouses(); track warehouse.id) {
+        <app-warehouse-card
+          [warehouse]="warehouse"
+          (view)="navigateToWarehouse($event)"
+          (edit)="openEditDialog($event)"
+          (delete)="confirmDelete($event)"
+        />
+      }
+    </div>
+  }
+</div>
+
+<app-warehouse-form
+  [visible]="showForm()"
+  (visibleChange)="showForm.set($event)"
+  [warehouse]="selectedWarehouse()"
+  (saved)="onFormSaved($event)"
+/>
