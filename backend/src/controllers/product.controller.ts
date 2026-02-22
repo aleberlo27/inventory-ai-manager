@@ -10,7 +10,7 @@ export async function getByWarehouse(
 ): Promise<void> {
   try {
     const products = await productService.getProductsByWarehouse(
-      req.params.warehouseId,
+      String(req.params.warehouseId),
       req.user!.id,
     );
     res.json({ data: products });
@@ -48,7 +48,7 @@ export async function create(req: Request, res: Response, next: NextFunction): P
       throw new AppError('quantity must be a non-negative number', 400);
     if (!unit) throw new AppError('unit is required', 400);
 
-    const product = await productService.createProduct(req.params.warehouseId, req.user!.id, {
+    const product = await productService.createProduct(String(req.params.warehouseId), req.user!.id, {
       name,
       sku,
       quantity,
