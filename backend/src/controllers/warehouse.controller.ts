@@ -13,7 +13,7 @@ export async function getAll(req: Request, res: Response, next: NextFunction): P
 
 export async function getOne(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const warehouse = await warehouseService.getWarehouseById(req.params.id, req.user!.id);
+    const warehouse = await warehouseService.getWarehouseById(String(req.params.id), req.user!.id);
     res.json({ data: warehouse });
   } catch (err) {
     next(err);
@@ -53,7 +53,7 @@ export async function update(req: Request, res: Response, next: NextFunction): P
       description?: string;
     };
 
-    const warehouse = await warehouseService.updateWarehouse(req.params.id, req.user!.id, {
+    const warehouse = await warehouseService.updateWarehouse(String(req.params.id), req.user!.id, {
       name,
       location,
       description,
@@ -66,7 +66,7 @@ export async function update(req: Request, res: Response, next: NextFunction): P
 
 export async function remove(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    await warehouseService.deleteWarehouse(req.params.id, req.user!.id);
+    await warehouseService.deleteWarehouse(String(req.params.id), req.user!.id);
     res.status(204).send();
   } catch (err) {
     next(err);
