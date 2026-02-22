@@ -257,28 +257,29 @@ export default {
 
 ## Development Steps
 
-| Step | Área      | Key Items                                                              |
-| ---- | --------- | ---------------------------------------------------------------------- |
-| 01   | Setup     | Monorepo, Angular CLI, PrimeNG, Tailwind, Jest, Playwright config      |
-| 02   | Setup     | Backend: Express + TypeScript + Prisma + PostgreSQL config             |
-| 03   | Shared    | Tipos compartidos: User, Warehouse, Product, ApiResponse               |
-| 04   | Backend   | Auth routes + controller + service TDD (register, login, JWT)          |
-| 05   | Frontend  | AuthService, login/registro forms TDD, auth.guard                      |
-| 06   | Frontend  | JWT Interceptor + error interceptor TDD                                |
-| 07   | Backend   | Warehouse routes + controller + service TDD (CRUD)                     |
-| 08   | Frontend  | WarehouseService + WarehouseList + WarehouseCard TDD                   |
-| 09   | Frontend  | WarehouseForm (crear/editar) TDD con PrimeNG                           |
-| 10   | Backend   | Product routes + controller + service TDD (CRUD por almacén)           |
-| 11   | Frontend  | ProductService + ProductList + ProductCard TDD (con alerta stock bajo) |
-| 12   | Frontend  | ProductForm (crear/editar, validación SKU) TDD                         |
-| 13   | Frontend  | Layout principal: MainLayout + AuthLayout + routing completo           |
-| 14   | Frontend  | Profile feature: ver y editar datos del usuario                        |
-| 15   | Backend   | AI route: prompt con contexto de inventario, respuesta con links       |
-| 16   | Frontend  | AiChat sidebar: input, historial, navegación a producto                |
-| 17   | E2E       | Playwright: auth flow, warehouses CRUD, products CRUD                  |
-| 18   | E2E       | Playwright: AI chat interactions, navegación desde chat                |
-| 19   | Quality   | ESLint + SonarJS, Husky pre-commit/pre-push                            |
-| 20   | Polish    | Environments, loading states, error handling global, stock alerts      |
+| Step | Área     | Key Items                                                              |
+| ---- | -------- | ---------------------------------------------------------------------- |
+| 01   | Setup    | Monorepo, Angular CLI, PrimeNG, Tailwind, Jest, Playwright config      |
+| 02   | Setup    | Backend: Express + TypeScript + Prisma + PostgreSQL config             |
+| 03   | Shared   | Tipos compartidos: User, Warehouse, Product, ApiResponse               |
+| 04   | Backend  | Auth routes + controller + service TDD (register, login, JWT)          |
+| 05   | Frontend | AuthService, login/registro forms TDD, auth.guard                      |
+| 06   | Frontend | JWT Interceptor + error interceptor TDD                                |
+| 07   | Backend  | Warehouse routes + controller + service TDD (CRUD)                     |
+| 08   | Frontend | WarehouseService + WarehouseList + WarehouseCard TDD                   |
+| 09   | Frontend | WarehouseForm (crear/editar) TDD con PrimeNG                           |
+| 10   | Backend  | Product routes + controller + service TDD (CRUD por almacén)           |
+| 11   | Frontend | ProductService + ProductList + ProductCard TDD (con alerta stock bajo) |
+| 12   | Frontend | ProductForm (crear/editar, validación SKU) TDD                         |
+| 13   | Frontend | Layout principal: MainLayout + AuthLayout + routing completo           |
+| 14   | Frontend | Profile feature: ver y editar datos del usuario                        |
+| 15   | Backend  | AI route: prompt con contexto de inventario, respuesta con links       |
+| 16   | Frontend | AiChat sidebar: input, historial, navegación a producto                |
+| 17   | E2E      | Playwright: auth flow, warehouses CRUD, products CRUD                  |
+| 18   | E2E      | Playwright: AI chat interactions, navegación desde chat                |
+| 19   | Quality  | ESLint + SonarJS, Husky pre-commit/pre-push                            |
+| 20   | Polish   | Environments, loading states, error handling global, stock alerts      |
+| 16   | Deploy   | Railway (backend + PostgreSQL) + Vercel (frontend) + seed datos demo   |
 
 ---
 
