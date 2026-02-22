@@ -1,4 +1,4 @@
-import { isLowStock } from '@/shared/utils/inventory.utils';
+import { isLowStock } from '@/app/shared/utils/inventory.utils';
 
 describe('isLowStock', () => {
   it('should return true when quantity is less than or equal to minStock', () => {

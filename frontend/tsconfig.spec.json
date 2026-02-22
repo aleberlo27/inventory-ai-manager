@@ -4,14 +4,14 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
+    "composite": true,
     "types": [
       "jest",
       "node"
     ]
   },
   "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
+    "src/**/*.ts"
   ]
 
 }
