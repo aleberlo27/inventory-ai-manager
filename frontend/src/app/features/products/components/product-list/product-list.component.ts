@@ -1,22 +1,16 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Tag, TagModule } from 'primeng/tag';
 import { Button, ButtonModule } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-
-import {
-  getStockStatus,
-  getStockStatusLabel,
-  getStockStatusSeverity,
-} from '@shared/utils/stock.utils';
-import type { Product, StockStatus } from '@shared/types';
 import { CommonModule } from '@angular/common';
+import type { Product, ProductWithStock, StockStatus } from '@shared/types';
+import { getStockStatus, getStockStatusLabel } from '@shared/utils/stock.utils';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [TranslatePipe, TagModule, ButtonModule, InputText, TableModule, CommonModule],
+  imports: [TranslatePipe, ButtonModule, InputText, TableModule, CommonModule],
   templateUrl: 'product-list.component.html',
 })
 export class ProductListComponent {
@@ -28,29 +22,30 @@ export class ProductListComponent {
 
   filterValue = signal('');
 
-  filteredProducts = computed(() => {
+  /** Precalcular estado de stock en cada producto */
+  filteredProducts = computed<ProductWithStock[]>(() => {
     const query = this.filterValue().toLowerCase();
-    if (!query) return this.products();
-    return this.products().filter(
-      p =>
-        p.name.toLowerCase().includes(query) || p.sku.toLowerCase().includes(query),
-    );
+
+    return this.products()
+      .filter(p =>
+        !query ||
+        p.name.toLowerCase().includes(query) ||
+        p.sku.toLowerCase().includes(query)
+      )
+      .map(p => ({
+        ...p,
+        stockStatus: getStockStatus(p.quantity, p.minStock)
+      }));
   });
 
-  getStockStatus(product: Product): StockStatus {
-    return getStockStatus(product.quantity, product.minStock);
+  /** Etiqueta del stock */
+  getStockLabel(product: ProductWithStock): string {
+    return getStockStatusLabel(product.stockStatus);
   }
 
-  getStockLabel(product: Product): string {
-    return getStockStatusLabel(this.getStockStatus(product));
-  }
-
-  getStockSeverity(product: Product): 'success' | 'warn' | 'danger' {
-    return getStockStatusSeverity(this.getStockStatus(product));
-  }
-
-  getRowClass(product: Product): string {
-    const status = this.getStockStatus(product);
+  /** Row class si quieres colorear la fila */
+  getRowClass(product: ProductWithStock): string {
+    const status = product.stockStatus;
     if (status === 'empty') return 'bg-red-50';
     if (status === 'low') return 'bg-yellow-50';
     return '';

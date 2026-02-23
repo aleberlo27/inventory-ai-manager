@@ -9,7 +9,8 @@
   </div>
 
   <!-- Table -->
-  <p-table [value]="filteredProducts()" [paginator]="filteredProducts().length > 10" [rows]="10" [paginator]="true" dataKey="id" class="!bg-white !border !border-gray-200 !shadow-sm !rounded-lg">
+  <p-table [value]="filteredProducts()" [paginator]="filteredProducts().length > 10" [rows]="10" [paginator]="true"
+    dataKey="id" class="!bg-white !border !border-gray-200 !shadow-sm !rounded-lg">
 
     <ng-template pTemplate="header">
       <tr class="!bg-gray-700 !text-white !uppercase !text-sm !border-b !border-gray-700 !cursor-default !rounded">
@@ -48,8 +49,13 @@
         <td class="!px-4 !py-2">{{ product.unit }}</td>
         <td class="!px-4 !py-2">{{ product.quantity }}</td>
         <td class="!px-4 !py-2">
-          <p-tag [value]="getStockLabel(product)" [severity]="getStockSeverity(product)" class="!text-white" />
-        </td>
+          <span class="px-2 py-1 text-xs font-medium rounded-md text-white" [ngClass]="{
+                  'bg-green-600': product.stockStatus === 'ok',
+                  'bg-orange-500': product.stockStatus === 'low',
+                  'bg-red-700': product.stockStatus === 'empty'
+                }">
+            {{ getStockLabel(product) }}
+          </span>
         <td class="!px-4 !py-2">
           <div class="flex gap-2">
             <p-button icon="pi pi-pencil" [rounded]="true" severity="secondary" size="small"
@@ -63,8 +69,21 @@
 
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="7" class="py-12 text-center !text-gray-500">
-          {{ 'PRODUCT.EMPTY_MESSAGE' | translate }}
+        <td colspan="7" class="!p-0">
+          <div class="flex flex-col items-center justify-center py-16 text-center !bg-white w-full !border !border-gray-200 !shadow-sm" data-testid="empty-state">
+            <!-- Icono grande -->
+            <i class="pi pi-box text-6xl text-gray-300 mb-4"></i>
+
+            <!-- Título -->
+            <h2 class="text-xl font-semibold text-gray-500 mb-2">
+              {{ 'PRODUCT.EMPTY_TITLE' | translate }}
+            </h2>
+
+            <!-- Mensaje -->
+            <p class="text-gray-400">
+              {{ 'PRODUCT.EMPTY_MESSAGE' | translate }}
+            </p>
+          </div>
         </td>
       </tr>
     </ng-template>

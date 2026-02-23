@@ -51,6 +51,8 @@ export class WarehouseFormComponent {
           location: warehouse.location,
           description: warehouse.description ?? '',
         });
+      } else {
+        this.form.reset();
       }
     });
   }
