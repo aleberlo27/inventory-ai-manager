@@ -11,11 +11,12 @@ import { getStockStatus } from '@shared/utils/stock.utils';
 import type { Product, Warehouse } from '@shared/types';
 import { ProductFormComponent } from '@/app/features/products/components/product-form/product-form.component';
 import { ConfirmDialog } from 'primeng/confirmdialog';
+import { WarehouseFormComponent } from '../warehouse-form/warehouse-form.component';
 
 @Component({
   selector: 'app-warehouse-detail',
   standalone: true,
-  imports: [TranslatePipe, Button, Tag, ProductFormComponent, ConfirmDialog],
+  imports: [TranslatePipe, Button, Tag, ProductFormComponent, ConfirmDialog, WarehouseFormComponent],
   templateUrl: 'warehouse-detail.component.html',
 })
 export class WarehouseDetailComponent implements OnInit {
@@ -25,6 +26,8 @@ export class WarehouseDetailComponent implements OnInit {
   loading = signal(true);
   showProductForm = signal(false);
   selectedProduct = signal<Product | null>(null);
+  selectedWarehouse = signal<Warehouse | null>(null);
+  showWarehouseForm = signal(false);
 
   lowStockCount = computed(
     () => this.products().filter(p => getStockStatus(p.quantity, p.minStock) !== 'ok').length,
@@ -92,6 +95,12 @@ export class WarehouseDetailComponent implements OnInit {
   openEditProduct(product: Product): void {
     this.selectedProduct.set(product);
     this.showProductForm.set(true);
+  }
+
+  openEditWarehouse() {
+    // Si quieres editar el warehouse actual
+    this.selectedWarehouse.set(this.warehouse());
+    this.showWarehouseForm.set(true); // reutiliza la misma señal para controlar visibilidad
   }
 
   onProductSaved(): void {

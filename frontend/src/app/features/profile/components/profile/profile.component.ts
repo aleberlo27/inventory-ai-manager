@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { Avatar } from 'primeng/avatar';
 import { Button } from 'primeng/button';
@@ -31,8 +31,7 @@ function passwordMatchValidator(control: AbstractControl): ValidationErrors | nu
 
 @Component({
   selector: 'app-profile',
-  standalone: true,
-  imports: [ReactiveFormsModule, TranslatePipe, Avatar, Button, Card, InputText, Password, Toast],
+  imports: [ReactiveFormsModule, TranslateModule, Avatar, Button, Card, InputText, Password, Toast],
   templateUrl: 'profile.component.html',
 })
 export class ProfileComponent implements OnInit {

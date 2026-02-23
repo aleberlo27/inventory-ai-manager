@@ -1,18 +1,16 @@
 import { Component, computed, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { Router, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { Toolbar } from 'primeng/toolbar';
-import { Avatar } from 'primeng/avatar';
-import { Button } from 'primeng/button';
-import { Menu } from 'primeng/menu';
-
+import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
 import { AuthService } from '../../../features/auth/services/auth.service';
 
 @Component({
   selector: 'app-topbar',
-  standalone: true,
-  imports: [TranslatePipe, RouterLink, Toolbar, Avatar, Button, Menu],
+  imports: [TranslateModule, RouterModule, ToolbarModule, AvatarModule, ButtonModule, MenuModule],
   templateUrl: 'topbar.component.html',
 })
 export class TopbarComponent {
@@ -36,6 +34,10 @@ export class TopbarComponent {
     { separator: true },
     { label: 'Cerrar Sesión', icon: 'pi pi-sign-out', command: () => this.logout() },
   ];
+
+  get showWarehousesButton(): boolean {
+    return this.router.url !== '/app/warehouses';
+  }
 
   logout(): void {
     this.authService.logout();

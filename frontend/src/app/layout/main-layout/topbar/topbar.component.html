@@ -1,14 +1,15 @@
-<p-toolbar class="bg-white border-b border-gray-200 px-4" [style]="{ border: 'none' }">
+<p-toolbar class="!bg-gray-900 px-4 !rounded-none" [style]="{ border: 'none' }">
   <ng-template pTemplate="start">
     <div class="flex items-center gap-3">
-      <span class="text-xl font-bold text-primary-600">Inventory AI</span>
+      <span class="text-xl font-bold text-primary-600">Inventory manager</span>
     </div>
   </ng-template>
 
   <ng-template pTemplate="center">
     <nav class="flex gap-1">
-      <p-button [label]="'TOPBAR.WAREHOUSES' | translate" routerLink="/app/warehouses" [text]="true"
-        icon="pi pi-building" />
+      @if (showWarehousesButton) {
+      <p-button [label]="'TOPBAR.WAREHOUSES' | translate" routerLink="/app/warehouses" [text]="true" severity="primary" [outlined]="true"
+        icon="pi pi-building" />}
     </nav>
   </ng-template>
 

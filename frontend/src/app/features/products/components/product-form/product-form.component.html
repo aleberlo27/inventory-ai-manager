@@ -52,6 +52,7 @@
         : (isEditMode
             ? ('PRODUCT.UPDATE_BUTTON' | translate)
             : ('PRODUCT.SAVE_BUTTON' | translate))" [disabled]="form.invalid || loading()" [loading]="loading()"
-      (onClick)="onSubmit()" />
+      (onClick)="onSubmit()"
+      severity="primary" />
   </div>
 </p-dialog>
