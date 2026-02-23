@@ -1,6 +1,3 @@
-<p-toast />
-<p-confirmDialog />
-
 <div class="p-4">
   @if (loading()) {
     <div class="flex flex-col gap-4">
@@ -10,17 +7,20 @@
     </div>
   } @else {
     <!-- Breadcrumb -->
-    <nav class="mb-4 text-sm text-gray-500">
+    <nav class="mb-4 text-sm !text-gray-500">
       <span>{{ 'WAREHOUSE.TITLE' | translate }}</span>
       <span class="mx-2">&gt;</span>
-      <span class="font-medium text-gray-800">{{ warehouse()?.name }}</span>
+      <span class="font-medium !text-gray-800">{{ warehouse()?.name }}</span>
     </nav>
 
     <!-- Header -->
     <div class="mb-6 flex items-start justify-between">
       <div>
-        <h1 class="text-2xl font-bold">{{ warehouse()?.name }}</h1>
-        <p class="text-gray-600">{{ warehouse()?.location }}</p>
+        <h1 class="text-2xl font-bold !text-gray-600">{{ warehouse()?.name }}</h1>
+        <div class="flex items-center text-gray-600 gap-1">
+          <i class="pi pi-map-marker"></i>
+          <p class="m-0">{{ warehouse()?.location }}</p>
+        </div>
         @if (warehouse()?.description) {
           <p class="mt-1 text-gray-500">{{ warehouse()?.description }}</p>
         }
@@ -37,25 +37,31 @@
 
     <!-- Stats -->
     <div class="mb-6 grid grid-cols-3 gap-4">
-      <div class="rounded border bg-white p-4 text-center shadow-sm">
-        <div class="text-2xl font-bold">{{ products().length }}</div>
+      <div class="rounded border bg-blue-50 p-4 text-center shadow-sm">
+        <div class="text-2xl font-bold text-blue-600">{{ products().length }}</div>
         <div class="text-sm text-gray-500">{{ 'WAREHOUSE.TOTAL_PRODUCTS' | translate }}</div>
       </div>
+
       <div class="rounded border p-4 text-center shadow-sm"
-           [class]="lowStockCount() > 0 ? 'bg-red-50 border-red-200' : 'bg-white'">
-        <div class="text-2xl font-bold" [class]="lowStockCount() > 0 ? 'text-red-600' : ''">
+           [class]="lowStockCount() > 0 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200'">
+        <div [class]="lowStockCount() > 0 ? 'text-red-600 text-2xl font-bold' : 'text-gray-700 text-2xl font-bold'">
           {{ lowStockCount() }}
         </div>
         <div class="text-sm text-gray-500">{{ 'WAREHOUSE.LOW_STOCK_COUNT' | translate }}</div>
       </div>
-      <div class="rounded border bg-white p-4 text-center shadow-sm">
-        <div class="text-2xl font-bold">{{ totalUnits() }}</div>
+
+      <div class="rounded border bg-green-50 p-4 text-center shadow-sm">
+        <div class="text-2xl font-bold text-green-600">{{ totalUnits() }}</div>
         <div class="text-sm text-gray-500">{{ 'WAREHOUSE.TOTAL_UNITS' | translate }}</div>
       </div>
     </div>
 
     <!-- Products section -->
-    <h2 class="mb-4 text-xl font-semibold">{{ 'PRODUCT.LIST_TITLE' | translate }}</h2>
+    <div class="mb-4 flex items-center justify-between">
+      <h2 class="text-xl font-semibold !text-gray-500">{{ 'PRODUCT.LIST_TITLE' | translate }}</h2>
+    </div>
+
+    <!-- ProductList component -->
     <app-product-list
       [products]="products()"
       [warehouseId]="warehouseId()"
@@ -73,3 +79,4 @@
   [warehouseId]="warehouseId()"
   (saved)="onProductSaved()"
 />
+<p-confirmDialog />

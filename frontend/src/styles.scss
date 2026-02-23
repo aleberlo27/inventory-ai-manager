@@ -90,3 +90,62 @@ textarea:focus,
   background-color: inherit !important;
   opacity: 1 !important;
 }
+
+/* ====== Paginator claro SIN bordes redondeados (todo forzado) ====== */
+
+/* Contenedor */
+.p-paginator {
+  background-color: #ffffff !important;   /* gris claro */
+  color: #1f2937 !important;
+  border-top: 1px solid #d1d5db !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0 !important;
+}
+
+/* Botones de página */
+.p-paginator .p-paginator-page {
+  color: #374151 !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 0 !important;
+  transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+
+/* Hover */
+.p-paginator .p-paginator-page:hover {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+/* Página activa (forzar azul y matar el verde del tema) */
+.p-paginator .p-paginator-page.p-highlight {
+  background-color: #359af8 !important;
+  border-color: #359af8 !important;
+  color: #ffffff !important;
+}
+
+/* Botones navegación */
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-last {
+  color: #374151 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.p-paginator .p-paginator-next:hover,
+.p-paginator .p-paginator-prev:hover,
+.p-paginator .p-paginator-first:hover,
+.p-paginator .p-paginator-last:hover {
+  background-color: #e5e7eb !important;
+  color: #111827 !important;
+}
+
+/* Dropdown */
+.p-paginator .p-dropdown {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 0 !important;
+}

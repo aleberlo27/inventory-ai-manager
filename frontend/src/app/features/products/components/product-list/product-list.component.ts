@@ -1,7 +1,7 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Tag } from 'primeng/tag';
-import { Button } from 'primeng/button';
+import { Tag, TagModule } from 'primeng/tag';
+import { Button, ButtonModule } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 
@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [TranslatePipe, Tag, Button, InputText, TableModule, CommonModule],
+  imports: [TranslatePipe, TagModule, ButtonModule, InputText, TableModule, CommonModule],
   templateUrl: 'product-list.component.html',
 })
 export class ProductListComponent {

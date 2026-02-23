@@ -1,69 +1,61 @@
 <div class="flex flex-col gap-4">
   <!-- Filter -->
   <div class="flex items-center justify-between gap-4">
-    <input
-      pInputText
-      type="text"
-      class="w-full max-w-xs"
-      [placeholder]="'PRODUCT.FILTER_PLACEHOLDER' | translate"
-      [value]="filterValue()"
-      (input)="filterValue.set($any($event.target).value)"
-    />
-    <p-button
-      [label]="'PRODUCT.ADD_BUTTON' | translate"
-      icon="pi pi-plus"
-      (onClick)="onAdd()"
-    />
+    <input pInputText type="text"
+      class="w-full max-w-xs !bg-white !border !border-gray-300 !rounded !px-3 !py-2 !text-gray-700 !placeholder-gray-400"
+      [placeholder]="'PRODUCT.FILTER_PLACEHOLDER' | translate" [value]="filterValue()"
+      (input)="filterValue.set($any($event.target).value)" />
+    <p-button [label]="'PRODUCT.ADD_BUTTON' | translate" icon="pi pi-plus" severity="primary" (onClick)="onAdd()" />
   </div>
 
   <!-- Table -->
-  <p-table
-    [value]="filteredProducts()"
-    [paginator]="filteredProducts().length > 10"
-    [rows]="10"
-    dataKey="id"
-  >
+  <p-table [value]="filteredProducts()" [paginator]="filteredProducts().length > 10" [rows]="10" [paginator]="true" dataKey="id" class="!bg-white !border !border-gray-200 !shadow-sm !rounded-lg">
+
     <ng-template pTemplate="header">
-      <tr>
-        <th pSortableColumn="name">{{ 'PRODUCT.NAME_COL' | translate }} <p-sortIcon field="name" /></th>
-        <th pSortableColumn="sku">{{ 'PRODUCT.SKU_COL' | translate }} <p-sortIcon field="sku" /></th>
-        <th>{{ 'PRODUCT.CATEGORY_COL' | translate }}</th>
-        <th>{{ 'PRODUCT.UNIT_COL' | translate }}</th>
-        <th pSortableColumn="quantity">{{ 'PRODUCT.STOCK_COL' | translate }} <p-sortIcon field="quantity" /></th>
-        <th>{{ 'PRODUCT.STATUS_COL' | translate }}</th>
-        <th>{{ 'PRODUCT.ACTIONS_COL' | translate }}</th>
+      <tr class="!bg-gray-700 !text-white !uppercase !text-sm !border-b !border-gray-700 !cursor-default !rounded">
+        <th pSortableColumn="name" class="!px-4 !py-2 !bg-gray-900 !text-white !cursor-pointer !rounded-sm">
+          {{ 'PRODUCT.NAME_COL' | translate }}
+          <p-sortIcon field="name" />
+        </th>
+        <th pSortableColumn="sku" class="!px-4 !py-2 !bg-gray-900 !text-white !cursor-pointer !rounded-sm">
+          {{ 'PRODUCT.SKU_COL' | translate }}
+          <p-sortIcon field="sku" />
+        </th>
+        <th class="!px-4 !py-2 !bg-gray-900 !text-white !cursor-default !rounded-sm">
+          {{ 'PRODUCT.CATEGORY_COL' | translate }}
+        </th>
+        <th class="!px-4 !py-2 !bg-gray-900 !text-white !cursor-default !rounded-sm">
+          {{ 'PRODUCT.UNIT_COL' | translate }}
+        </th>
+        <th pSortableColumn="quantity" class="!px-4 !py-2 !bg-gray-900 !text-white !cursor-pointer !rounded-sm">
+          {{ 'PRODUCT.STOCK_COL' | translate }}
+          <p-sortIcon field="quantity" />
+        </th>
+        <th class="!px-4 !py-2 !bg-gray-900 !text-white !cursor-default !rounded-sm">
+          {{ 'PRODUCT.STATUS_COL' | translate }}
+        </th>
+        <th class="!px-4 !py-2 !bg-gray-900 !text-white !cursor-default !rounded-sm">
+          {{ 'PRODUCT.ACTIONS_COL' | translate }}
+        </th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-product>
-      <tr [ngClass]="getRowClass(product)">
-        <td>{{ product.name }}</td>
-        <td>{{ product.sku }}</td>
-        <td>{{ product.category ?? '-' }}</td>
-        <td>{{ product.unit }}</td>
-        <td>{{ product.quantity }}</td>
-        <td>
-          <p-tag
-            [value]="getStockLabel(product)"
-            [severity]="getStockSeverity(product)"
-          />
+      <tr class="!bg-white !text-black !border-b !border-gray-200">
+        <td class="!px-4 !py-2">{{ product.name }}</td>
+        <td class="!px-4 !py-2">{{ product.sku }}</td>
+        <td class="!px-4 !py-2">{{ product.category ?? '-' }}</td>
+        <td class="!px-4 !py-2">{{ product.unit }}</td>
+        <td class="!px-4 !py-2">{{ product.quantity }}</td>
+        <td class="!px-4 !py-2">
+          <p-tag [value]="getStockLabel(product)" [severity]="getStockSeverity(product)" class="!text-white" />
         </td>
-        <td>
+        <td class="!px-4 !py-2">
           <div class="flex gap-2">
-            <p-button
-              icon="pi pi-pencil"
-              [rounded]="true"
-              severity="secondary"
-              size="small"
-              (onClick)="onEdit(product)"
-            />
-            <p-button
-              icon="pi pi-trash"
-              [rounded]="true"
-              severity="danger"
-              size="small"
-              (onClick)="onDelete(product)"
-            />
+            <p-button icon="pi pi-pencil" [rounded]="true" severity="secondary" size="small"
+              (onClick)="onEdit(product)" />
+            <p-button icon="pi pi-trash" [rounded]="true" severity="danger" size="small"
+              (onClick)="onDelete(product)" />
           </div>
         </td>
       </tr>
@@ -71,7 +63,7 @@
 
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="7" class="py-12 text-center text-gray-500">
+        <td colspan="7" class="py-12 text-center !text-gray-500">
           {{ 'PRODUCT.EMPTY_MESSAGE' | translate }}
         </td>
       </tr>
