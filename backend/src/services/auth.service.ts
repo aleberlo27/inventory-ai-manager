@@ -60,6 +60,52 @@ export async function loginUser(credentials: LoginCredentials): Promise<AuthResp
   return { user: safeUser, token: generateToken(user.id) };
 }
 
+export interface UpdateProfileData {
+  name?: string;
+  email?: string;
+}
+
+export async function updateProfile(userId: string, data: UpdateProfileData): Promise<SafeUser> {
+  if (data.email) {
+    const existing = await prisma.user.findUnique({ where: { email: data.email } });
+    if (existing && existing.id !== userId) {
+      throw new AppError('Email already in use', 409);
+    }
+  }
+
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data,
+    select: { id: true, email: true, name: true, avatar: true, createdAt: true },
+  });
+  return user;
+}
+
+export async function updatePassword(
+  userId: string,
+  currentPassword: string,
+  newPassword: string,
+): Promise<void> {
+  if (newPassword.length < 6) {
+    throw new AppError('Password must be at least 6 characters', 400);
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { id: true, password: true },
+  });
+  if (!user) throw new AppError('User not found', 404);
+
+  const isValid = await bcrypt.compare(currentPassword, user.password);
+  if (!isValid) throw new AppError('Current password is incorrect', 401);
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  await prisma.user.update({
+    where: { id: userId },
+    data: { password: hashedPassword },
+  });
+}
+
 export async function validateToken(token: string): Promise<SafeUser> {
   let payload: { userId: string };
   try {

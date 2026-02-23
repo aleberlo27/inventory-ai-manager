@@ -134,6 +134,23 @@
     "BACK_BUTTON": "Volver al inicio"
   },
   "PROFILE": {
-    "TITLE": "Mi Perfil"
+    "TITLE": "Mi Perfil",
+    "PERSONAL_INFO_TITLE": "Información Personal",
+    "CHANGE_PASSWORD_TITLE": "Cambiar Contraseña",
+    "NAME_LABEL": "Nombre",
+    "EMAIL_LABEL": "Email",
+    "MEMBER_SINCE": "Miembro desde",
+    "SAVE_BUTTON": "Guardar Cambios",
+    "SAVING": "Guardando...",
+    "CURRENT_PASSWORD_LABEL": "Contraseña actual",
+    "NEW_PASSWORD_LABEL": "Nueva contraseña",
+    "CONFIRM_PASSWORD_LABEL": "Confirmar nueva contraseña",
+    "CHANGE_PASSWORD_BUTTON": "Cambiar Contraseña",
+    "UPDATE_SUCCESS": "Perfil actualizado correctamente",
+    "UPDATE_ERROR": "Error al actualizar el perfil",
+    "EMAIL_IN_USE": "Este email ya está en uso",
+    "PASSWORD_CHANGED": "Contraseña cambiada correctamente",
+    "PASSWORD_CURRENT_INCORRECT": "La contraseña actual es incorrecta",
+    "PASSWORD_ERROR": "Error al cambiar la contraseña"
   }
 }

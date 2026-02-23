@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { registerUser, loginUser } from '../services/auth.service';
+import {
+  registerUser,
+  loginUser,
+  updateProfile as updateProfileService,
+  updatePassword as updatePasswordService,
+} from '../services/auth.service';
 import { AppError } from '../middleware/error.middleware';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -46,4 +51,42 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
 
 export function getMe(req: Request, res: Response): void {
   res.status(200).json({ data: req.user });
+}
+
+export async function updateProfile(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const { name, email } = req.body as { name?: string; email?: string };
+    const userId = req.user!.id;
+    const user = await updateProfileService(userId, { name, email });
+    res.status(200).json({ data: user });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function updatePassword(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const { currentPassword, newPassword } = req.body as {
+      currentPassword?: string;
+      newPassword?: string;
+    };
+
+    if (!currentPassword || !newPassword) {
+      throw new AppError('currentPassword and newPassword are required', 400);
+    }
+
+    const userId = req.user!.id;
+    await updatePasswordService(userId, currentPassword, newPassword);
+    res.status(200).json({ data: { message: 'Password updated successfully' } });
+  } catch (err) {
+    next(err);
+  }
 }
