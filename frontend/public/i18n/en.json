@@ -1,4 +1,8 @@
 {
+  "GENERAL": {
+    "YES": "Yes",
+    "NO": "No"
+  },
   "AUTH": {
     "LOGIN_TITLE": "Sign In",
     "REGISTER_TITLE": "Create account",
@@ -26,10 +30,10 @@
     "REQUIRED_LOCATION": "Location is required"
   },
   "WAREHOUSE": {
-    "TITLE": "My Warehouses",
-    "NEW_BUTTON": "New Warehouse",
-    "NEW_TITLE": "New Warehouse",
-    "EDIT_TITLE": "Edit Warehouse",
+    "TITLE": "My warehouses",
+    "NEW_BUTTON": "New warehouse",
+    "NEW_TITLE": "New warehouse",
+    "EDIT_TITLE": "Edit warehouse",
     "EDIT_BUTTON": "Edit warehouse",
     "BACK_BUTTON": "Back",
     "NAME_LABEL": "Name",
@@ -49,7 +53,7 @@
     "NO_DESCRIPTION": "No description",
     "CHARS_REMAINING": "characters remaining",
     "DELETE_HEADER": "Confirm deletion",
-    "DELETE_MESSAGE": "Are you sure you want to delete warehouse \"{name}\"? This will also delete all its products.",
+    "DELETE_MESSAGE": "Are you sure you want to delete warehouse \"{{name}}\"? This will also delete all its products.",
     "CREATE_SUCCESS": "Warehouse created successfully",
     "UPDATE_SUCCESS": "Warehouse updated successfully",
     "DELETE_SUCCESS": "Warehouse deleted successfully",
@@ -96,7 +100,7 @@
     "SAVE_ERROR": "Error saving product",
     "DELETE_ERROR": "Error deleting product",
     "DELETE_HEADER": "Confirm deletion",
-    "DELETE_MESSAGE": "Are you sure you want to delete product \"{name}\"?",
+    "DELETE_MESSAGE": "Are you sure you want to delete product \"{{name}}\"?",
     "INVALID_SKU": "SKU can only contain uppercase letters, numbers and hyphens",
     "UNITS_OPTION": "units",
     "KG_OPTION": "kg",
@@ -106,7 +110,9 @@
     "BOXES_OPTION": "boxes",
     "PALLETS_OPTION": "pallets",
     "METERS_OPTION": "meters",
-    "M2_OPTION": "m²"
+    "M2_OPTION": "m²",
+    "DELETE_SUCCESS_SUMMARY": "Success",
+    "DELETE_ERROR_SUMMARY": "Error"
   },
   "STOCK_ALERT": {
     "EMPTY_PRODUCTS": "{count} product(s) out of stock",
@@ -122,16 +128,19 @@
     "LOGOUT": "Log Out"
   },
   "AI_CHAT": {
-    "COMING_SOON": "AI Chat coming soon...",
+    "COMING_SOON": "AI chat coming soon...",
     "ASSISTANT_TITLE": "AI Assistant",
     "CLEAR_TOOLTIP": "Clear conversation",
-    "WELCOME_TITLE": "Hi! I'm your inventory assistant",
+    "WELCOME_TITLE": "Hello! I'm your inventory assistant",
     "WELCOME_SUBTITLE": "Ask me about your products and warehouses",
     "SUGGESTION_1": "Which products have low stock?",
     "SUGGESTION_2": "How much stock do I have in total?",
     "SUGGESTION_3": "Which warehouse has the most products?",
     "PLACEHOLDER": "Ask about your products...",
-    "ERROR_MESSAGE": "Sorry, an error occurred. Please try again."
+    "ERROR_MESSAGE": "Sorry, an error occurred. Please try again.",
+    "INPUT_PLACEHOLDER": "Type a message...",
+    "CLEAR_HISTORY_BUTTON": "Clear history",
+    "SEND_BUTTON": "Send"
   },
   "BREADCRUMB": {
     "WAREHOUSE_DETAIL": "Warehouse",

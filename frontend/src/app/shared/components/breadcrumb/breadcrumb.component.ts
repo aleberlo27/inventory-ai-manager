@@ -8,7 +8,7 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 @Component({
   selector: 'app-breadcrumb',
   standalone: true,
-  imports: [TranslatePipe, Breadcrumb],
+  imports: [Breadcrumb],
   templateUrl: 'breadcrumb.component.html',
 })
 export class BreadcrumbComponent implements OnInit {

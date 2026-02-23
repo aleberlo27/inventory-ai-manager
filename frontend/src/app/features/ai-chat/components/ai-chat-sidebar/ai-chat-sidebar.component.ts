@@ -1,8 +1,8 @@
 import { AfterViewChecked, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
-import { Button } from 'primeng/button';
-import { Tooltip } from 'primeng/tooltip';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { ChatService } from '../../services/chat.service';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
@@ -11,13 +11,13 @@ import type { ProductLink } from '@shared/types';
 
 @Component({
   selector: 'app-ai-chat-sidebar',
-  standalone: true,
-  imports: [TranslatePipe, Button, Tooltip, ChatMessageComponent, ChatInputComponent],
+  imports: [TranslateModule, ButtonModule, TooltipModule, ChatMessageComponent, ChatInputComponent],
   templateUrl: 'ai-chat-sidebar.component.html',
 })
 export class AiChatSidebarComponent implements AfterViewChecked {
   private readonly chatService = inject(ChatService);
   private readonly router = inject(Router);
+  private readonly translate = inject(TranslateService);
 
   @ViewChild('messageContainer') messageContainer!: ElementRef;
 
@@ -25,9 +25,18 @@ export class AiChatSidebarComponent implements AfterViewChecked {
   readonly loading = this.chatService.loading;
 
   readonly suggestions = [
-    { key: 'AI_CHAT.SUGGESTION_1', text: '¿Qué productos tienen stock bajo?' },
-    { key: 'AI_CHAT.SUGGESTION_2', text: '¿Cuánto stock tengo en total?' },
-    { key: 'AI_CHAT.SUGGESTION_3', text: '¿En qué almacén hay más productos?' },
+    {
+      key: 'AI_CHAT.SUGGESTION_1',
+      text: this.translate.instant('AI_CHAT.SUGGESTION_1'),
+    },
+    {
+      key: 'AI_CHAT.SUGGESTION_2',
+      text: this.translate.instant('AI_CHAT.SUGGESTION_2'),
+    },
+    {
+      key: 'AI_CHAT.SUGGESTION_3',
+      text: this.translate.instant('AI_CHAT.SUGGESTION_3'),
+    },
   ];
 
   ngAfterViewChecked(): void {
@@ -44,6 +53,14 @@ export class AiChatSidebarComponent implements AfterViewChecked {
 
   onClearHistory(): void {
     this.chatService.clearHistory();
+  }
+
+  get inputPlaceholder(): string {
+    return this.translate.instant('AI_CHAT.INPUT_PLACEHOLDER');
+  }
+
+  get sendButtonLabel(): string {
+    return this.translate.instant('AI_CHAT.SEND_BUTTON');
   }
 
   private scrollToBottom(): void {

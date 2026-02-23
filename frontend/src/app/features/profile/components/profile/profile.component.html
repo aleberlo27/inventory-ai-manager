@@ -1,17 +1,12 @@
 <p-toast />
 
 <div class="p-6 max-w-2xl mx-auto">
-  <h1 class="text-2xl font-bold mb-6">{{ 'PROFILE.TITLE' | translate }}</h1>
+  <h1 class="text-2xl font-bold mb-6 text-gray-900">{{ 'PROFILE.TITLE' | translate }}</h1>
 
   <!-- Personal Information -->
-  <p-card [header]="'PROFILE.PERSONAL_INFO_TITLE' | translate">
+  <p-card class="!bg-gray-900 !text-gray-100 !border-gray-700 mt-4 block" [header]="'PROFILE.PERSONAL_INFO_TITLE' | translate">
     <div class="flex items-center gap-6 mb-6">
-      <p-avatar
-        [image]="currentUser()?.avatar"
-        [label]="userInitials()"
-        size="xlarge"
-        shape="circle"
-      />
+      <p-avatar [image]="currentUser()?.avatar" [label]="userInitials()" size="xlarge" shape="circle" />
       <div>
         <p class="font-medium">{{ currentUser()?.name }}</p>
         <p class="text-gray-500 text-sm">{{ currentUser()?.email }}</p>
@@ -23,75 +18,54 @@
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-1">
           <label for="name" class="font-medium">{{ 'PROFILE.NAME_LABEL' | translate }}</label>
-          <input
-            pInputText
-            id="name"
-            formControlName="name"
-            [class.ng-dirty]="nameControl.dirty"
-          />
+          <input pInputText id="name" formControlName="name" [class.ng-dirty]="nameControl.dirty" />
           @if (nameControl.dirty && nameControl.hasError('required')) {
-            <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small>
+          <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small>
           }
           @if (nameControl.dirty && nameControl.hasError('minlength')) {
-            <small class="text-red-500">{{ 'VALIDATION.MIN_LENGTH_2' | translate }}</small>
+          <small class="text-red-500">{{ 'VALIDATION.MIN_LENGTH_2' | translate }}</small>
           }
         </div>
 
         <div class="flex flex-col gap-1">
           <label for="email" class="font-medium">{{ 'PROFILE.EMAIL_LABEL' | translate }}</label>
-          <input
-            pInputText
-            id="email"
-            formControlName="email"
-            type="email"
-          />
+          <input pInputText id="email" formControlName="email" type="email" />
           @if (emailControl.dirty && emailControl.hasError('required')) {
-            <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small>
+          <small class="text-red-500">{{ 'VALIDATION.REQUIRED' | translate }}</small>
           }
           @if (emailControl.dirty && emailControl.hasError('email')) {
-            <small class="text-red-500">{{ 'VALIDATION.VALID_EMAIL' | translate }}</small>
+          <small class="text-red-500">{{ 'VALIDATION.VALID_EMAIL' | translate }}</small>
           }
         </div>
 
         <div class="flex justify-end">
-          <p-button
-            type="submit"
+          <p-button type="submit" severity="primary"
             [label]="savingProfile() ? ('PROFILE.SAVING' | translate) : ('PROFILE.SAVE_BUTTON' | translate)"
-            [disabled]="profileForm.invalid || !hasProfileChanges() || savingProfile()"
-          />
+            [disabled]="profileForm.invalid || !hasProfileChanges() || savingProfile()" />
         </div>
       </div>
     </form>
   </p-card>
 
   <!-- Change Password -->
-  <p-card [header]="'PROFILE.CHANGE_PASSWORD_TITLE' | translate" class="mt-4 block">
+  <p-card class="!bg-gray-900 !text-gray-100 !border-gray-700 mt-4 block" [header]="'PROFILE.CHANGE_PASSWORD_TITLE' | translate">
     <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-1">
           <label for="currentPassword" class="font-medium">
             {{ 'PROFILE.CURRENT_PASSWORD_LABEL' | translate }}
           </label>
-          <p-password
-            inputId="currentPassword"
-            formControlName="currentPassword"
-            [feedback]="false"
-            [toggleMask]="true"
-          />
+          <p-password inputId="currentPassword" formControlName="currentPassword" [feedback]="false"
+            [toggleMask]="true" />
         </div>
 
         <div class="flex flex-col gap-1">
           <label for="newPassword" class="font-medium">
             {{ 'PROFILE.NEW_PASSWORD_LABEL' | translate }}
           </label>
-          <p-password
-            inputId="newPassword"
-            formControlName="newPassword"
-            [feedback]="true"
-            [toggleMask]="true"
-          />
+          <p-password inputId="newPassword" formControlName="newPassword" [feedback]="true" [toggleMask]="true" />
           @if (passwordForm.get('newPassword')?.dirty && passwordForm.get('newPassword')?.hasError('minlength')) {
-            <small class="text-red-500">{{ 'VALIDATION.MIN_LENGTH_PASSWORD' | translate }}</small>
+          <small class="text-red-500">{{ 'VALIDATION.MIN_LENGTH_PASSWORD' | translate }}</small>
           }
         </div>
 
@@ -99,23 +73,17 @@
           <label for="confirmPassword" class="font-medium">
             {{ 'PROFILE.CONFIRM_PASSWORD_LABEL' | translate }}
           </label>
-          <p-password
-            inputId="confirmPassword"
-            formControlName="confirmPassword"
-            [feedback]="false"
-            [toggleMask]="true"
-          />
+          <p-password inputId="confirmPassword" formControlName="confirmPassword" [feedback]="false"
+            [toggleMask]="true" />
           @if (passwordForm.dirty && passwordForm.hasError('passwordMismatch')) {
-            <small class="text-red-500">{{ 'VALIDATION.PASSWORDS_MISMATCH' | translate }}</small>
+          <small class="text-red-500">{{ 'VALIDATION.PASSWORDS_MISMATCH' | translate }}</small>
           }
         </div>
 
         <div class="flex justify-end">
-          <p-button
-            type="submit"
+          <p-button type="submit" severity="primary"
             [label]="savingPassword() ? ('PROFILE.SAVING' | translate) : ('PROFILE.CHANGE_PASSWORD_BUTTON' | translate)"
-            [disabled]="passwordForm.invalid || savingPassword()"
-          />
+            [disabled]="passwordForm.invalid || savingPassword()" />
         </div>
       </div>
     </form>

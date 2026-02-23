@@ -1,94 +1,95 @@
 <div class="p-4">
   @if (loading()) {
-    <div class="flex flex-col gap-4">
-      <div class="h-8 w-48 animate-pulse rounded bg-gray-200"></div>
-      <div class="h-24 animate-pulse rounded bg-gray-200"></div>
-      <div class="h-64 animate-pulse rounded bg-gray-200"></div>
-    </div>
+  <div class="flex flex-col gap-4">
+    <div class="h-8 w-48 animate-pulse rounded bg-gray-200"></div>
+    <div class="h-24 animate-pulse rounded bg-gray-200"></div>
+    <div class="h-64 animate-pulse rounded bg-gray-200"></div>
+  </div>
   } @else {
-    <!-- Breadcrumb -->
-    <nav class="mb-4 text-sm text-gray-500">
-      <span>{{ 'WAREHOUSE.TITLE' | translate }}</span>
-      <span class="mx-2">&gt;</span>
-      <span class="font-medium text-gray-800">{{ warehouse()?.name }}</span>
-    </nav>
+  <!-- Breadcrumb -->
+  <nav class="mb-4 text-sm !text-gray-500">
+    <span>{{ 'WAREHOUSE.TITLE' | translate }}</span>
+    <span class="mx-2">&gt;</span>
+    <span class="font-medium !text-gray-800">{{ warehouse()?.name }}</span>
+  </nav>
 
-    <!-- Header -->
-    <div class="mb-6 flex items-start justify-between">
+  <!-- Header -->
+  <div class="mb-6 flex items-start justify-between">
+    <div>
+      <h1 class="text-2xl font-bold !text-gray-600">{{ warehouse()?.name }}</h1>
+      <div class="flex items-center text-gray-600 gap-1">
+        <i class="pi pi-map-marker"></i>
+        <p class="m-0">{{ warehouse()?.location }}</p>
+      </div>
+      @if (warehouse()?.description) {
+      <p class="mt-1 text-gray-500">{{ warehouse()?.description }}</p>
+      }
+    </div>
+    <div class="flex gap-2">
+      <p-button [label]="'WAREHOUSE.BACK_BUTTON' | translate" icon="pi pi-arrow-left" severity="secondary"
+        (onClick)="goBack()" />
+      <p-button [label]="'WAREHOUSE.EDIT_BUTTON' | translate" icon="pi pi-pencil" severity="secondary"
+        (onClick)="openEditWarehouse()" />
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="mb-6 grid grid-cols-3 gap-4">
+    <div class="rounded border bg-blue-50 p-4 text-center shadow-sm">
+      <div class="text-2xl font-bold text-blue-600">{{ products().length }}</div>
+      <div class="text-sm text-gray-500">{{ 'WAREHOUSE.TOTAL_PRODUCTS' | translate }}</div>
+    </div>
+
+    <div class="rounded border p-4 text-center shadow-sm"
+      [class]="lowStockCount() > 0 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200'">
+      <div [class]="lowStockCount() > 0 ? 'text-red-600 text-2xl font-bold' : 'text-gray-700 text-2xl font-bold'">
+        {{ lowStockCount() }}
+      </div>
+      <div class="text-sm text-gray-500">{{ 'WAREHOUSE.LOW_STOCK_COUNT' | translate }}</div>
+    </div>
+
+    <div class="rounded border bg-green-50 p-4 text-center shadow-sm">
+      <div class="text-2xl font-bold text-green-600">{{ totalUnits() }}</div>
+      <div class="text-sm text-gray-500">{{ 'WAREHOUSE.TOTAL_UNITS' | translate }}</div>
+    </div>
+  </div>
+
+  <!-- Products section -->
+  <div class="mb-4 flex items-center justify-between">
+    <h2 class="text-xl font-semibold !text-gray-500">{{ 'PRODUCT.LIST_TITLE' | translate }}</h2>
+    <p-button [label]="'PRODUCT.ADD_BUTTON' | translate" icon="pi pi-plus" severity="primary"
+      (onClick)="openAddProduct()" />
+  </div>
+
+  <!-- Product list placeholder: will use ProductList component once created -->
+  @if (products().length === 0) {
+  <div class="py-12 text-center text-gray-500">
+    {{ 'PRODUCT.EMPTY_MESSAGE' | translate }}
+  </div>
+  } @else {
+  <div class="flex flex-col gap-2">
+    @for (product of products(); track product.id) {
+    <div class="flex items-center justify-between rounded border bg-white p-3 shadow-sm">
       <div>
-        <h1 class="text-2xl font-bold">{{ warehouse()?.name }}</h1>
-        <p class="text-gray-600">{{ warehouse()?.location }}</p>
-        @if (warehouse()?.description) {
-          <p class="mt-1 text-gray-500">{{ warehouse()?.description }}</p>
-        }
+        <span class="font-medium !text-gray-500">{{ product.name }}</span>
+        <span class="ml-2 text-sm !text-gray-500">{{ product.sku }}</span>
       </div>
-      <div class="flex gap-2">
-        <p-button
-          [label]="'WAREHOUSE.BACK_BUTTON' | translate"
-          icon="pi pi-arrow-left"
-          severity="secondary"
-          (onClick)="goBack()"
-        />
-        <p-button
-          [label]="'WAREHOUSE.EDIT_BUTTON' | translate"
-          icon="pi pi-pencil"
-          severity="secondary"
-        />
+      <div class="flex items-center gap-2">
+        <p-tag [value]="product.quantity.toString()" />
+        <p-button icon="pi pi-pencil" [rounded]="true" severity="secondary" size="small"
+          (onClick)="openEditProduct(product)" />
+        <p-button icon="pi pi-trash" [rounded]="true" severity="danger" size="small"
+          (onClick)="confirmDeleteProduct(product)" />
       </div>
     </div>
-
-    <!-- Stats -->
-    <div class="mb-6 grid grid-cols-3 gap-4">
-      <div class="rounded border bg-white p-4 text-center shadow-sm">
-        <div class="text-2xl font-bold">{{ products().length }}</div>
-        <div class="text-sm text-gray-500">{{ 'WAREHOUSE.TOTAL_PRODUCTS' | translate }}</div>
-      </div>
-      <div class="rounded border p-4 text-center shadow-sm"
-           [class]="lowStockCount() > 0 ? 'bg-red-50 border-red-200' : 'bg-white'">
-        <div class="text-2xl font-bold" [class]="lowStockCount() > 0 ? 'text-red-600' : ''">
-          {{ lowStockCount() }}
-        </div>
-        <div class="text-sm text-gray-500">{{ 'WAREHOUSE.LOW_STOCK_COUNT' | translate }}</div>
-      </div>
-      <div class="rounded border bg-white p-4 text-center shadow-sm">
-        <div class="text-2xl font-bold">{{ totalUnits() }}</div>
-        <div class="text-sm text-gray-500">{{ 'WAREHOUSE.TOTAL_UNITS' | translate }}</div>
-      </div>
-    </div>
-
-    <!-- Products section -->
-    <div class="mb-4 flex items-center justify-between">
-      <h2 class="text-xl font-semibold">{{ 'PRODUCT.LIST_TITLE' | translate }}</h2>
-      <p-button
-        [label]="'PRODUCT.ADD_BUTTON' | translate"
-        icon="pi pi-plus"
-        (onClick)="openAddProduct()"
-      />
-    </div>
-
-    <!-- Product list placeholder: will use ProductList component once created -->
-    @if (products().length === 0) {
-      <div class="py-12 text-center text-gray-500">
-        {{ 'PRODUCT.EMPTY_MESSAGE' | translate }}
-      </div>
-    } @else {
-      <div class="flex flex-col gap-2">
-        @for (product of products(); track product.id) {
-          <div class="flex items-center justify-between rounded border bg-white p-3 shadow-sm">
-            <div>
-              <span class="font-medium">{{ product.name }}</span>
-              <span class="ml-2 text-sm text-gray-500">{{ product.sku }}</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <p-tag [value]="product.quantity.toString()" />
-              <p-button icon="pi pi-pencil" [rounded]="true" severity="secondary" size="small"
-                (onClick)="openEditProduct(product)" />
-              <p-button icon="pi pi-trash" [rounded]="true" severity="danger" size="small"
-                (onClick)="confirmDeleteProduct(product)" />
-            </div>
-          </div>
-        }
-      </div>
     }
+  </div>
+  }
   }
 </div>
+<app-product-form [warehouseId]="warehouseId()" [product]="selectedProduct()" [visible]="showProductForm()"
+  (visibleChange)="showProductForm.set($event)" (saved)="onProductSaved()" />
+
+<app-warehouse-form [warehouse]="selectedWarehouse()" [visible]="showWarehouseForm()"
+  (visibleChange)="showWarehouseForm.set($event)" (saved)="loadWarehouse(warehouseId())"></app-warehouse-form>
+<p-confirmDialog></p-confirmDialog>

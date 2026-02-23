@@ -5,6 +5,7 @@
   [modal]="true"
   [style]="{ width: '500px' }"
   [closable]="true"
+  class="!bg-gray-900"
 >
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 pt-2">
     <div class="flex flex-col gap-1">
@@ -88,6 +89,7 @@
         [disabled]="form.invalid || loading()"
         (onClick)="onSubmit()"
         data-testid="save-btn"
+        severity="primary"
       />
     </div>
   </ng-template>
