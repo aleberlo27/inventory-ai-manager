@@ -122,7 +122,16 @@
     "LOGOUT": "Cerrar Sesión"
   },
   "AI_CHAT": {
-    "COMING_SOON": "Chat de IA próximamente..."
+    "COMING_SOON": "Chat de IA próximamente...",
+    "ASSISTANT_TITLE": "Asistente IA",
+    "CLEAR_TOOLTIP": "Limpiar conversación",
+    "WELCOME_TITLE": "¡Hola! Soy tu asistente de inventario",
+    "WELCOME_SUBTITLE": "Pregúntame sobre tus productos y almacenes",
+    "SUGGESTION_1": "¿Qué productos tienen stock bajo?",
+    "SUGGESTION_2": "¿Cuánto stock tengo en total?",
+    "SUGGESTION_3": "¿En qué almacén hay más productos?",
+    "PLACEHOLDER": "Pregunta por tus productos...",
+    "ERROR_MESSAGE": "Lo siento, ha ocurrido un error. Por favor, inténtalo de nuevo."
   },
   "BREADCRUMB": {
     "WAREHOUSE_DETAIL": "Almacén",
