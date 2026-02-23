@@ -9,11 +9,13 @@ import { WarehouseService } from '../../services/warehouse.service';
 import { ProductService } from '../../../products/services/product.service';
 import { getStockStatus } from '@shared/utils/stock.utils';
 import type { Product, Warehouse } from '@shared/types';
+import { ProductFormComponent } from '@/app/features/products/components/product-form/product-form.component';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-warehouse-detail',
   standalone: true,
-  imports: [TranslatePipe, Button, Tag],
+  imports: [TranslatePipe, Button, Tag, ProductFormComponent, ConfirmDialog],
   templateUrl: 'warehouse-detail.component.html',
 })
 export class WarehouseDetailComponent implements OnInit {

@@ -92,3 +92,11 @@
     }
   }
 </div>
+<app-product-form
+  [warehouseId]="warehouseId()"
+  [product]="selectedProduct()"
+  [visible]="showProductForm()"
+  (visibleChange)="showProductForm.set($event)"
+  (saved)="onProductSaved()"
+/>
+<p-confirmDialog></p-confirmDialog>

@@ -1,93 +1,57 @@
-<p-dialog
-  [header]="(isEditMode ? 'PRODUCT.EDIT_TITLE' : 'PRODUCT.NEW_TITLE') | translate"
-  [visible]="visible()"
-  [modal]="true"
-  [closable]="true"
-  [style]="{ width: '500px' }"
-  (onHide)="onClose()"
->
+<p-dialog [header]="(isEditMode ? 'PRODUCT.EDIT_TITLE' : 'PRODUCT.NEW_TITLE') | translate" [visible]="visible()"
+  [modal]="true" [closable]="true" [style]="{ width: '500px' }" (onHide)="onClose()">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 py-2">
 
     <!-- Name -->
     <div class="flex flex-col gap-1">
       <label class="font-medium">{{ 'PRODUCT.NAME_LABEL' | translate }} *</label>
-      <input
-        pInputText
-        formControlName="name"
-        [placeholder]="'PRODUCT.NAME_LABEL' | translate"
-      />
+      <input pInputText formControlName="name" [placeholder]="'PRODUCT.NAME_LABEL' | translate" />
     </div>
 
     <!-- SKU -->
     <div class="flex flex-col gap-1">
       <label class="font-medium">{{ 'PRODUCT.SKU_LABEL' | translate }} *</label>
-      <input
-        pInputText
-        formControlName="sku"
-        [placeholder]="'PRODUCT.SKU_LABEL' | translate"
-        (input)="onSkuInput($event)"
-      />
+      <input pInputText formControlName="sku" [placeholder]="'PRODUCT.SKU_LABEL' | translate"
+        (input)="onSkuInput($event)" />
       @if (form.get('sku')?.errors?.['invalidSku']) {
-        <small class="text-red-500">{{ 'PRODUCT.INVALID_SKU' | translate }}</small>
+      <small class="text-red-500">{{ 'PRODUCT.INVALID_SKU' | translate }}</small>
       }
     </div>
 
     <!-- Quantity -->
     <div class="flex flex-col gap-1">
       <label class="font-medium">{{ 'PRODUCT.QUANTITY_LABEL' | translate }} *</label>
-      <p-inputNumber
-        formControlName="quantity"
-        [min]="0"
-        [showButtons]="true"
-      />
+      <p-inputNumber formControlName="quantity" [min]="0" [showButtons]="true" />
     </div>
 
     <!-- Unit -->
     <div class="flex flex-col gap-1">
       <label class="font-medium">{{ 'PRODUCT.UNIT_LABEL' | translate }} *</label>
-      <p-select
-        formControlName="unit"
-        [options]="unitOptions"
-        [editable]="true"
-        [placeholder]="'PRODUCT.UNIT_LABEL' | translate"
-      />
+      <p-select formControlName="unit" [options]="unitOptions" [editable]="true"
+        [placeholder]="'PRODUCT.UNIT_LABEL' | translate" />
     </div>
 
     <!-- Category -->
     <div class="flex flex-col gap-1">
       <label class="font-medium">{{ 'PRODUCT.CATEGORY_LABEL' | translate }}</label>
-      <input
-        pInputText
-        formControlName="category"
-        [placeholder]="'PRODUCT.CATEGORY_LABEL' | translate"
-      />
+      <input pInputText formControlName="category" [placeholder]="'PRODUCT.CATEGORY_LABEL' | translate" />
     </div>
 
     <!-- Min Stock -->
     <div class="flex flex-col gap-1">
       <label class="font-medium">{{ 'PRODUCT.MIN_STOCK_LABEL' | translate }}</label>
-      <p-inputNumber
-        formControlName="minStock"
-        [min]="0"
-        [showButtons]="true"
-      />
+      <p-inputNumber formControlName="minStock" [min]="0" [showButtons]="true" />
     </div>
 
   </form>
 
-  <ng-template pTemplate="footer">
-    <div class="flex justify-end gap-2">
-      <p-button
-        [label]="'PRODUCT.CANCEL_BUTTON' | translate"
-        severity="secondary"
-        (onClick)="onClose()"
-      />
-      <p-button
-        [label]="loading() ? ('PRODUCT.SAVING' | translate) : (isEditMode ? ('PRODUCT.UPDATE_BUTTON' | translate) : ('PRODUCT.SAVE_BUTTON' | translate))"
-        [disabled]="form.invalid || loading()"
-        [loading]="loading()"
-        (onClick)="onSubmit()"
-      />
-    </div>
-  </ng-template>
+  <div class="flex justify-end gap-2 pt-4 border-t mt-4">
+    <p-button [label]="'PRODUCT.CANCEL_BUTTON' | translate" severity="secondary" (onClick)="onClose()" />
+    <p-button type="submit" [label]="loading()
+        ? ('PRODUCT.SAVING' | translate)
+        : (isEditMode
+            ? ('PRODUCT.UPDATE_BUTTON' | translate)
+            : ('PRODUCT.SAVE_BUTTON' | translate))" [disabled]="form.invalid || loading()" [loading]="loading()"
+      (onClick)="onSubmit()" />
+  </div>
 </p-dialog>
