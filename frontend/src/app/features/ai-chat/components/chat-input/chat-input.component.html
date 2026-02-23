@@ -1,0 +1,31 @@
+<div class="border-t border-gray-200 p-3">
+  @if (characterCount() > 400) {
+    <p
+      data-testid="char-counter"
+      class="text-xs text-right mb-1"
+      [class.text-red-500]="characterCount() > 500"
+      [class.text-gray-400]="characterCount() <= 500">
+      {{ characterCount() }}/500
+    </p>
+  }
+
+  <div class="flex gap-2 items-end">
+    <textarea
+      pTextarea
+      [value]="message()"
+      (input)="message.set($any($event.target).value)"
+      (keydown)="onKeydown($event)"
+      [placeholder]="'AI_CHAT.PLACEHOLDER' | translate"
+      rows="2"
+      class="flex-1 resize-none text-sm"
+      [disabled]="loading()">
+    </textarea>
+
+    <p-button
+      icon="pi pi-send"
+      [disabled]="!canSend()"
+      [loading]="loading()"
+      (click)="onSend()"
+      size="small" />
+  </div>
+</div>
