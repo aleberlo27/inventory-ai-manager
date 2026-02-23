@@ -1,22 +1,23 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { Tag } from 'primeng/tag';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { Toast } from 'primeng/toast';
 
 import { WarehouseService } from '../../services/warehouse.service';
 import { ProductService } from '../../../products/services/product.service';
+import { ProductListComponent } from '../../../products/components/product-list/product-list.component';
+import { ProductFormComponent } from '../../../products/components/product-form/product-form.component';
 import { getStockStatus } from '@shared/utils/stock.utils';
 import type { Product, Warehouse } from '@shared/types';
-import { ProductFormComponent } from '@/app/features/products/components/product-form/product-form.component';
-import { ConfirmDialog } from 'primeng/confirmdialog';
-import { WarehouseFormComponent } from '../warehouse-form/warehouse-form.component';
 
 @Component({
   selector: 'app-warehouse-detail',
   standalone: true,
-  imports: [TranslatePipe, Button, Tag, ProductFormComponent, ConfirmDialog, WarehouseFormComponent],
+  imports: [TranslatePipe, Button, Tag, ConfirmDialog, Toast, ProductListComponent, ProductFormComponent],
   templateUrl: 'warehouse-detail.component.html',
 })
 export class WarehouseDetailComponent implements OnInit {
@@ -26,8 +27,6 @@ export class WarehouseDetailComponent implements OnInit {
   loading = signal(true);
   showProductForm = signal(false);
   selectedProduct = signal<Product | null>(null);
-  selectedWarehouse = signal<Warehouse | null>(null);
-  showWarehouseForm = signal(false);
 
   lowStockCount = computed(
     () => this.products().filter(p => getStockStatus(p.quantity, p.minStock) !== 'ok').length,
@@ -41,7 +40,6 @@ export class WarehouseDetailComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
-  private readonly translate = inject(TranslateService);
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') ?? '';
@@ -61,7 +59,7 @@ export class WarehouseDetailComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: this.translate.instant('WAREHOUSE.LOAD_ERROR'),
+          detail: 'WAREHOUSE.LOAD_ERROR',
         });
       },
     });
@@ -78,7 +76,7 @@ export class WarehouseDetailComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: this.translate.instant('PRODUCT.LOAD_ERROR_DETAIL'),
+          detail: 'PRODUCT.LOAD_ERROR',
         });
       },
     });
@@ -98,35 +96,17 @@ export class WarehouseDetailComponent implements OnInit {
     this.showProductForm.set(true);
   }
 
-  openEditWarehouse() {
-    this.selectedWarehouse.set(this.warehouse());
-    this.showWarehouseForm.set(true);
-  }
-
   onProductSaved(): void {
     this.loadProducts(this.warehouseId());
     this.showProductForm.set(false);
   }
 
   confirmDeleteProduct(product: Product): void {
-    const message = this.translate.instant('PRODUCT.DELETE_MESSAGE', {
-      name: product.name,
-    });
-    const header = this.translate.instant('PRODUCT.DELETE_HEADER');
-
-    const yes = this.translate.instant('GENERAL.YES');
-    const no = this.translate.instant('GENERAL.NO');
-
     this.confirmationService.confirm({
-      message,
-      header,
+      message: `¿Seguro que quieres eliminar "${product.name}"?`,
+      header: 'Confirmar eliminación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => this.deleteProduct(product.id),
-      reject: () => { },
-      acceptLabel: yes,
-      rejectLabel: no,
-      acceptButtonStyleClass: 'p-button-primary',
-      rejectButtonStyleClass: 'p-button-secondary',
     });
   }
 
@@ -137,14 +117,14 @@ export class WarehouseDetailComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'OK',
-          detail: this.translate.instant('PRODUCT.DELETE_SUCCESS'),
+          detail: 'PRODUCT.DELETE_SUCCESS',
         });
       },
       error: () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: this.translate.instant('PRODUCT.DELETE_ERROR'),
+          detail: 'PRODUCT.DELETE_ERROR',
         });
       },
     });
