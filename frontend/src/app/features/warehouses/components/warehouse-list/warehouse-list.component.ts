@@ -31,7 +31,7 @@ export class WarehouseListComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
-  private readonly translateService = inject(TranslateService);
+  private readonly translate = inject(TranslateService);
 
   readonly warehouses = signal<Warehouse[]>([]);
   readonly loading = signal(true);
@@ -54,7 +54,7 @@ export class WarehouseListComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: this.translateService.instant('WAREHOUSE.LOAD_ERROR'),
+          detail: this.translate.instant('WAREHOUSE.LOAD_ERROR'),
         });
       },
     });
@@ -71,13 +71,21 @@ export class WarehouseListComponent implements OnInit {
   }
 
   confirmDelete(warehouse: Warehouse): void {
+    const message = this.translate.instant('WAREHOUSE.DELETE_MESSAGE', {
+      name: warehouse.name,
+    });
+    const header = this.translate.instant('WAREHOUSE.DELETE_HEADER');
+    const yes = this.translate.instant('GENERAL.YES');
+    const no = this.translate.instant('GENERAL.NO');
+
     this.confirmationService.confirm({
-      message: this.translateService.instant('WAREHOUSE.DELETE_MESSAGE', {
-        name: warehouse.name,
-      }),
-      header: this.translateService.instant('WAREHOUSE.DELETE_HEADER'),
+      message,
+      header,
       icon: 'pi pi-exclamation-triangle',
       accept: () => this.deleteWarehouse(warehouse.id),
+      reject: () => { },
+      acceptLabel: yes,
+      rejectLabel: no,
       acceptButtonStyleClass: 'p-button-primary',
       rejectButtonStyleClass: 'p-button-secondary',
     });
@@ -90,14 +98,14 @@ export class WarehouseListComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'OK',
-          detail: this.translateService.instant('WAREHOUSE.DELETE_SUCCESS'),
+          detail: this.translate.instant('WAREHOUSE.DELETE_SUCCESS'),
         });
       },
       error: () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: this.translateService.instant('WAREHOUSE.DELETE_ERROR'),
+          detail: this.translate.instant('WAREHOUSE.DELETE_ERROR'),
         });
       },
     });

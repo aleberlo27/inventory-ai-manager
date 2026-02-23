@@ -84,3 +84,9 @@ textarea:focus,
 .warehouses-btn:hover .p-button-icon {
   color: var(--my-primary-color) !important;
 }
+
+.p-toast .p-toast-message,
+.p-toast .p-toast-message .p-toast-icon {
+  background-color: inherit !important;
+  opacity: 1 !important;
+}

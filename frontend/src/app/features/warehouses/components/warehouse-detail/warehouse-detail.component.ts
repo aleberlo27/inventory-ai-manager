@@ -39,9 +39,9 @@ export class WarehouseDetailComponent implements OnInit {
   private readonly productService = inject(ProductService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly translateService = inject(TranslateService);
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') ?? '';
@@ -61,7 +61,7 @@ export class WarehouseDetailComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'WAREHOUSE.LOAD_ERROR',
+          detail: this.translate.instant('WAREHOUSE.LOAD_ERROR'),
         });
       },
     });
@@ -77,8 +77,8 @@ export class WarehouseDetailComponent implements OnInit {
         this.loading.set(false);
         this.messageService.add({
           severity: 'error',
-          summary: this.translateService.instant('PRODUCT.LOAD_ERROR_SUMMARY'),
-          detail: this.translateService.instant('PRODUCT.LOAD_ERROR_DETAIL'),
+          summary: 'Error',
+          detail: this.translate.instant('PRODUCT.LOAD_ERROR_DETAIL'),
         });
       },
     });
@@ -109,16 +109,22 @@ export class WarehouseDetailComponent implements OnInit {
   }
 
   confirmDeleteProduct(product: Product): void {
-    const message = this.translateService.instant('PRODUCT.DELETE_MESSAGE', {
+    const message = this.translate.instant('PRODUCT.DELETE_MESSAGE', {
       name: product.name,
     });
-    const header = this.translateService.instant('PRODUCT.DELETE_HEADER');
+    const header = this.translate.instant('PRODUCT.DELETE_HEADER');
+
+    const yes = this.translate.instant('GENERAL.YES');
+    const no = this.translate.instant('GENERAL.NO');
 
     this.confirmationService.confirm({
       message,
       header,
       icon: 'pi pi-exclamation-triangle',
       accept: () => this.deleteProduct(product.id),
+      reject: () => { },
+      acceptLabel: yes,
+      rejectLabel: no,
       acceptButtonStyleClass: 'p-button-primary',
       rejectButtonStyleClass: 'p-button-secondary',
     });
@@ -130,15 +136,15 @@ export class WarehouseDetailComponent implements OnInit {
         this.products.update(list => list.filter(p => p.id !== id));
         this.messageService.add({
           severity: 'success',
-          summary: this.translateService.instant('PRODUCT.DELETE_SUCCESS_SUMMARY'),
-          detail: this.translateService.instant('PRODUCT.DELETE_SUCCESS'),
+          summary: 'OK',
+          detail: this.translate.instant('PRODUCT.DELETE_SUCCESS'),
         });
       },
       error: () => {
         this.messageService.add({
           severity: 'error',
-          summary: this.translateService.instant('PRODUCT.DELETE_ERROR_SUMMARY'),
-          detail: this.translateService.instant('PRODUCT.DELETE_ERROR'),
+          summary: 'Error',
+          detail: this.translate.instant('PRODUCT.DELETE_ERROR'),
         });
       },
     });

@@ -1,4 +1,8 @@
 {
+  "GENERAL": {
+    "YES": "Yes",
+    "NO": "No"
+  },
   "AUTH": {
     "LOGIN_TITLE": "Sign In",
     "REGISTER_TITLE": "Create account",
@@ -124,16 +128,19 @@
     "LOGOUT": "Log Out"
   },
   "AI_CHAT": {
-    "COMING_SOON": "AI Chat coming soon...",
+    "COMING_SOON": "AI chat coming soon...",
     "ASSISTANT_TITLE": "AI Assistant",
     "CLEAR_TOOLTIP": "Clear conversation",
-    "WELCOME_TITLE": "Hi! I'm your inventory assistant",
+    "WELCOME_TITLE": "Hello! I'm your inventory assistant",
     "WELCOME_SUBTITLE": "Ask me about your products and warehouses",
     "SUGGESTION_1": "Which products have low stock?",
     "SUGGESTION_2": "How much stock do I have in total?",
     "SUGGESTION_3": "Which warehouse has the most products?",
     "PLACEHOLDER": "Ask about your products...",
-    "ERROR_MESSAGE": "Sorry, an error occurred. Please try again."
+    "ERROR_MESSAGE": "Sorry, an error occurred. Please try again.",
+    "INPUT_PLACEHOLDER": "Type a message...",
+    "CLEAR_HISTORY_BUTTON": "Clear history",
+    "SEND_BUTTON": "Send"
   },
   "BREADCRUMB": {
     "WAREHOUSE_DETAIL": "Warehouse",

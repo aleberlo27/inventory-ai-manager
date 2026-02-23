@@ -6,7 +6,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
@@ -50,6 +50,7 @@ export class ProductFormComponent {
 
   private readonly productService = inject(ProductService);
   private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
   private readonly fb = inject(FormBuilder);
 
   readonly loading = signal(false);
@@ -122,7 +123,7 @@ export class ProductFormComponent {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'PRODUCT.SAVE_ERROR',
+          detail: this.translate.instant('PRODUCT.SAVE_ERROR'),
         });
       },
     });

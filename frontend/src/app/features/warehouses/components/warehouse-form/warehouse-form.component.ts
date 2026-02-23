@@ -7,7 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
@@ -32,6 +32,7 @@ export class WarehouseFormComponent {
   private readonly warehouseService = inject(WarehouseService);
   private readonly messageService = inject(MessageService);
   private readonly fb = inject(FormBuilder);
+  private readonly translate = inject(TranslateService);
 
   readonly loading = signal(false);
 
@@ -101,7 +102,7 @@ export class WarehouseFormComponent {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'WAREHOUSE.SAVE_ERROR',
+          detail: this.translate.instant('WAREHOUSE.SAVE_ERROR'),
         });
       },
     });

@@ -1,4 +1,8 @@
 {
+  "GENERAL": {
+    "YES": "Si",
+    "NO": "No"
+  },
   "AUTH": {
     "LOGIN_TITLE": "Iniciar Sesión",
     "REGISTER_TITLE": "Crear cuenta",
@@ -133,7 +137,10 @@
     "SUGGESTION_2": "¿Cuánto stock tengo en total?",
     "SUGGESTION_3": "¿En qué almacén hay más productos?",
     "PLACEHOLDER": "Pregunta por tus productos...",
-    "ERROR_MESSAGE": "Lo siento, ha ocurrido un error. Por favor, inténtalo de nuevo."
+    "ERROR_MESSAGE": "Lo siento, ha ocurrido un error. Por favor, inténtalo de nuevo.",
+    "INPUT_PLACEHOLDER": "Escribe un mensaje...",
+    "CLEAR_HISTORY_BUTTON": "Borrar historial",
+    "SEND_BUTTON": "Enviar"
   },
   "BREADCRUMB": {
     "WAREHOUSE_DETAIL": "Almacén",

@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs';
-import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { Avatar } from 'primeng/avatar';
 import { Button } from 'primeng/button';
@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
   private readonly profileService = inject(ProfileService);
   private readonly messageService = inject(MessageService);
   private readonly fb = inject(FormBuilder);
+  private readonly translate = inject(TranslateService);
 
   readonly currentUser = this.authService.currentUser;
   readonly savingProfile = signal(false);
@@ -109,17 +110,16 @@ export class ProfileComponent implements OnInit {
     this.profileService.updateProfile({ name: name ?? undefined, email: email ?? undefined }).subscribe({
       next: () => {
         this.savingProfile.set(false);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'PROFILE.UPDATE_SUCCESS',
-          detail: 'PROFILE.UPDATE_SUCCESS',
-        });
+        const summary = this.translate.instant('PROFILE.UPDATE_SUCCESS');
+        const detail = this.translate.instant('PROFILE.UPDATE_SUCCESS');
+        this.messageService.add({ severity: 'success', summary, detail });
       },
       error: (err: { status?: number }) => {
         this.savingProfile.set(false);
-        const detail =
-          err?.status === 409 ? 'PROFILE.EMAIL_IN_USE' : 'PROFILE.UPDATE_ERROR';
-        this.messageService.add({ severity: 'error', summary: 'Error', detail });
+        const detailKey = err?.status === 409 ? 'PROFILE.EMAIL_IN_USE' : 'PROFILE.UPDATE_ERROR';
+        const detail = this.translate.instant(detailKey);
+        const summary = this.translate.instant('PROFILE.ERROR_SUMMARY');
+        this.messageService.add({ severity: 'error', summary, detail });
       },
     });
   }
@@ -134,19 +134,19 @@ export class ProfileComponent implements OnInit {
       next: () => {
         this.savingPassword.set(false);
         this.passwordForm.reset();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'PROFILE.PASSWORD_CHANGED',
-          detail: 'PROFILE.PASSWORD_CHANGED',
-        });
+        const summary = this.translate.instant('PROFILE.PASSWORD_CHANGED');
+        const detail = this.translate.instant('PROFILE.PASSWORD_CHANGED');
+        this.messageService.add({ severity: 'success', summary, detail });
       },
       error: (err: { status?: number }) => {
         this.savingPassword.set(false);
-        const detail =
+        const detailKey =
           err?.status === 401
             ? 'PROFILE.PASSWORD_CURRENT_INCORRECT'
             : 'PROFILE.PASSWORD_ERROR';
-        this.messageService.add({ severity: 'error', summary: 'Error', detail });
+        const detail = this.translate.instant(detailKey);
+        const summary = this.translate.instant('PROFILE.ERROR_SUMMARY');
+        this.messageService.add({ severity: 'error', summary, detail });
       },
     });
   }
