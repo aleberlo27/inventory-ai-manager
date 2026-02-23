@@ -17,7 +17,7 @@
 
     <!-- Welcome screen -->
     @if(messages().length === 0) {
-    <div class="text-center py-8">
+    <div data-testid="welcome-screen" class="text-center py-8">
       <div class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-4">
         <i class="pi pi-robot text-primary-500 text-2xl"></i>
       </div>
@@ -27,6 +27,7 @@
       <div class="mt-4 space-y-2">
         @for(suggestion of suggestions; track suggestion.key) {
         <button
+          data-testid="suggestion-btn"
           class="block w-full text-left px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-gray-300 transition"
           (click)="onSendMessage(suggestion.text)">
           {{ suggestion.key | translate }}
@@ -43,7 +44,7 @@
 
     <!-- Loading indicator -->
     @if(loading()) {
-    <div class="flex gap-2 items-center">
+    <div data-testid="typing-indicator" class="flex gap-2 items-center">
       <div class="w-7 h-7 rounded-full bg-primary-100 flex items-center justify-center">
         <i class="pi pi-robot text-primary-500 text-xs"></i>
       </div>
