@@ -7,10 +7,11 @@ import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { AuthService } from '../../../features/auth/services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-topbar',
-  imports: [TranslateModule, RouterModule, ToolbarModule, AvatarModule, ButtonModule, MenuModule],
+  imports: [TranslateModule, RouterModule, ToolbarModule, AvatarModule, ButtonModule, MenuModule, CommonModule],
   templateUrl: 'topbar.component.html',
 })
 export class TopbarComponent {

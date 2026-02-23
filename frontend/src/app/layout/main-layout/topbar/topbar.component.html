@@ -8,8 +8,10 @@
   <ng-template pTemplate="center">
     <nav class="flex gap-1">
       @if (showWarehousesButton) {
-      <p-button [label]="'TOPBAR.WAREHOUSES' | translate" routerLink="/app/warehouses" [text]="true" severity="primary" [outlined]="true"
-        icon="pi pi-building" />}
+      <p-button [label]="'TOPBAR.WAREHOUSES' | translate" routerLink="/app/warehouses" [text]="true"
+        styleClass="warehouses-btn"
+        icon="pi pi-building" />
+      }
     </nav>
   </ng-template>
 

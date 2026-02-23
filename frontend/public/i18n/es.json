@@ -26,10 +26,10 @@
     "REQUIRED_LOCATION": "La ubicación es obligatoria"
   },
   "WAREHOUSE": {
-    "TITLE": "Mis Almacenes",
-    "NEW_BUTTON": "Nuevo Almacén",
-    "NEW_TITLE": "Nuevo Almacén",
-    "EDIT_TITLE": "Editar Almacén",
+    "TITLE": "Mis almacenes",
+    "NEW_BUTTON": "Nuevo almacén",
+    "NEW_TITLE": "Nuevo almacén",
+    "EDIT_TITLE": "Editar almacén",
     "EDIT_BUTTON": "Editar almacén",
     "BACK_BUTTON": "Volver",
     "NAME_LABEL": "Nombre",
@@ -49,7 +49,7 @@
     "NO_DESCRIPTION": "Sin descripción",
     "CHARS_REMAINING": "caracteres restantes",
     "DELETE_HEADER": "Confirmar eliminación",
-    "DELETE_MESSAGE": "¿Seguro que quieres eliminar el almacén \"{name}\"? Esta acción eliminará también todos sus productos.",
+    "DELETE_MESSAGE": "¿Seguro que quieres eliminar el almacén \"{{name}}\"? Esta acción eliminará también todos sus productos.",
     "CREATE_SUCCESS": "Almacén creado correctamente",
     "UPDATE_SUCCESS": "Almacén actualizado correctamente",
     "DELETE_SUCCESS": "Almacén eliminado correctamente",
@@ -96,7 +96,7 @@
     "SAVE_ERROR": "Error al guardar el producto",
     "DELETE_ERROR": "Error al eliminar el producto",
     "DELETE_HEADER": "Confirmar eliminación",
-    "DELETE_MESSAGE": "¿Seguro que quieres eliminar el producto \"{name}\"?",
+    "DELETE_MESSAGE": "¿Seguro que quieres eliminar el producto \"{{name}}\"?",
     "INVALID_SKU": "El SKU solo puede contener letras mayúsculas, números y guiones",
     "UNITS_OPTION": "unidades",
     "KG_OPTION": "kg",
@@ -106,7 +106,9 @@
     "BOXES_OPTION": "cajas",
     "PALLETS_OPTION": "pallets",
     "METERS_OPTION": "metros",
-    "M2_OPTION": "m²"
+    "M2_OPTION": "m²",
+    "DELETE_SUCCESS_SUMMARY": "Éxito",
+    "DELETE_ERROR_SUMMARY": "Error"
   },
   "STOCK_ALERT": {
     "EMPTY_PRODUCTS": "{count} producto(s) sin stock",

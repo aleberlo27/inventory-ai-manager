@@ -78,6 +78,8 @@ export class WarehouseListComponent implements OnInit {
       header: this.translateService.instant('WAREHOUSE.DELETE_HEADER'),
       icon: 'pi pi-exclamation-triangle',
       accept: () => this.deleteWarehouse(warehouse.id),
+      acceptButtonStyleClass: 'p-button-primary',
+      rejectButtonStyleClass: 'p-button-secondary',
     });
   }
 

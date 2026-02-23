@@ -1,6 +1,6 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { Tag } from 'primeng/tag';
@@ -39,6 +39,7 @@ export class WarehouseDetailComponent implements OnInit {
   private readonly productService = inject(ProductService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly translateService = inject(TranslateService);
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
 
@@ -76,8 +77,8 @@ export class WarehouseDetailComponent implements OnInit {
         this.loading.set(false);
         this.messageService.add({
           severity: 'error',
-          summary: 'Error',
-          detail: 'PRODUCT.LOAD_ERROR',
+          summary: this.translateService.instant('PRODUCT.LOAD_ERROR_SUMMARY'),
+          detail: this.translateService.instant('PRODUCT.LOAD_ERROR_DETAIL'),
         });
       },
     });
@@ -98,9 +99,8 @@ export class WarehouseDetailComponent implements OnInit {
   }
 
   openEditWarehouse() {
-    // Si quieres editar el warehouse actual
     this.selectedWarehouse.set(this.warehouse());
-    this.showWarehouseForm.set(true); // reutiliza la misma señal para controlar visibilidad
+    this.showWarehouseForm.set(true);
   }
 
   onProductSaved(): void {
@@ -109,11 +109,18 @@ export class WarehouseDetailComponent implements OnInit {
   }
 
   confirmDeleteProduct(product: Product): void {
+    const message = this.translateService.instant('PRODUCT.DELETE_MESSAGE', {
+      name: product.name,
+    });
+    const header = this.translateService.instant('PRODUCT.DELETE_HEADER');
+
     this.confirmationService.confirm({
-      message: `¿Seguro que quieres eliminar "${product.name}"?`,
-      header: 'Confirmar eliminación',
+      message,
+      header,
       icon: 'pi pi-exclamation-triangle',
       accept: () => this.deleteProduct(product.id),
+      acceptButtonStyleClass: 'p-button-primary',
+      rejectButtonStyleClass: 'p-button-secondary',
     });
   }
 
@@ -123,15 +130,15 @@ export class WarehouseDetailComponent implements OnInit {
         this.products.update(list => list.filter(p => p.id !== id));
         this.messageService.add({
           severity: 'success',
-          summary: 'OK',
-          detail: 'PRODUCT.DELETE_SUCCESS',
+          summary: this.translateService.instant('PRODUCT.DELETE_SUCCESS_SUMMARY'),
+          detail: this.translateService.instant('PRODUCT.DELETE_SUCCESS'),
         });
       },
       error: () => {
         this.messageService.add({
           severity: 'error',
-          summary: 'Error',
-          detail: 'PRODUCT.DELETE_ERROR',
+          summary: this.translateService.instant('PRODUCT.DELETE_ERROR_SUMMARY'),
+          detail: this.translateService.instant('PRODUCT.DELETE_ERROR'),
         });
       },
     });

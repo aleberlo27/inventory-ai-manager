@@ -37,7 +37,8 @@ body {
 input,
 textarea,
 .p-inputtext {
-  border-color: #d1d5db; /* gris por defecto */
+  border-color: #d1d5db;
+  /* gris por defecto */
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -53,15 +54,33 @@ input:focus,
 textarea:focus,
 .p-inputtext:focus {
   border-color: var(--my-primary-color) !important;
-  box-shadow: 0 0 0 0.2rem rgba(53, 154, 248, 0.3) !important; /* glow azul */
+  box-shadow: 0 0 0 0.2rem rgba(53, 154, 248, 0.3) !important;
+  /* glow azul */
   outline: none !important;
 }
 
 /* Tags PrimeNG */
 .p-tag {
-  background-color: var(--my-primary-color) !important;  /* fondo azul */
-  color: white !important;                                /* texto blanco */
-  border-radius: 0.375rem !important;                    /* opcional, redondeado como Tailwind */
-  font-weight: 500 !important;                           /* opcional, texto medio */
+  background-color: var(--my-primary-color) !important;
+  /* fondo azul */
+  color: white !important;
+  /* texto blanco */
+  border-radius: 0.375rem !important;
+  /* opcional, redondeado como Tailwind */
+  font-weight: 500 !important;
+  /* opcional, texto medio */
 }
 
+.warehouses-btn,
+.warehouses-btn .p-button-label,
+.warehouses-btn .p-button-icon {
+  color: var(--my-primary-color) !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.warehouses-btn:hover,
+.warehouses-btn:hover .p-button-label,
+.warehouses-btn:hover .p-button-icon {
+  color: var(--my-primary-color) !important;
+}
