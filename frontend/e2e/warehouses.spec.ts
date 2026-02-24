@@ -94,6 +94,8 @@ test.describe('Warehouses', () => {
     // Should navigate to the detail page
     await expect(page).toHaveURL(new RegExp(`/app/warehouses/${warehouse.id}`));
     // Products section heading is visible
-    await expect(page.getByText('Productos')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Productos', exact: true })
+    ).toBeVisible();
   });
 });

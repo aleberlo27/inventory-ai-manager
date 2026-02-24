@@ -29,7 +29,7 @@ export class WarehousesPage {
   }
   // Confirm dialog
   get confirmYesButton() {
-    return this.page.getByRole('button', { name: 'Yes' });
+    return this.page.getByRole('button', { name: 'Si', exact: true });
   }
 
   // — Actions —
