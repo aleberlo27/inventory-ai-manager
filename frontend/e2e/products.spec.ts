@@ -41,7 +41,9 @@ test.describe('Products', () => {
     await page.goto(`/app/warehouses/${warehouseId}`);
     await expect(page).toHaveURL(new RegExp(`/app/warehouses/${warehouseId}`));
     // Wait for the product list to be visible
-    await expect(page.getByText('Productos')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Productos', exact: true })
+    ).toBeVisible();
   });
 
   test('TC-10: Crear producto aparece en la tabla', async ({ page }) => {
@@ -61,7 +63,7 @@ test.describe('Products', () => {
     await qtyInput.fill('20');
 
     // Select first unit from dropdown
-    await dialog.locator('p-select').click();
+    await dialog.locator('.p-select-dropdown').click();
     await page.locator('.p-select-option').first().click();
 
     await page.getByRole('button', { name: 'Crear Producto' }).click();
@@ -82,7 +84,9 @@ test.describe('Products', () => {
       minStock: 10,
     });
     await page.reload();
-    await expect(page.getByText('Productos')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Productos', exact: true })
+    ).toBeVisible();
 
     // The p-tag should show "Stock bajo" for this product
     await prod.expectStockStatus('Producto Stock Bajo', 'Stock bajo');
@@ -105,7 +109,9 @@ test.describe('Products', () => {
       unit: 'kg',
     });
     await page.reload();
-    await expect(page.getByText('Productos')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Productos', exact: true })
+    ).toBeVisible();
 
     // Filter by "Manzana"
     await prod.filterByName(`Manzana ${ts}`);
@@ -123,7 +129,9 @@ test.describe('Products', () => {
       unit: 'unidades',
     });
     await page.reload();
-    await expect(page.getByText('Productos')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Productos', exact: true })
+    ).toBeVisible();
 
     const prod = new ProductsPage(page);
     await prod.clickEditRow('Producto TC13');
@@ -150,7 +158,9 @@ test.describe('Products', () => {
       unit: 'unidades',
     });
     await page.reload();
-    await expect(page.getByText('Productos')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Productos', exact: true })
+    ).toBeVisible();
 
     const prod = new ProductsPage(page);
     await prod.expectProductVisible('Producto TC14');

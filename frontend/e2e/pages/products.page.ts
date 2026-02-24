@@ -35,7 +35,7 @@ export class ProductsPage {
     return this.page.getByRole('button', { name: 'Guardar Cambios' });
   }
   get confirmYesButton() {
-    return this.page.getByRole('button', { name: 'Yes' });
+    return this.page.getByRole('button', { name: 'Si', exact: true });
   }
 
   // — Actions —
@@ -50,7 +50,7 @@ export class ProductsPage {
     await qtyInput.click({ clickCount: 3 });
     await qtyInput.fill(quantity.toString());
     // Select unit (first option from dropdown)
-    await this.page.locator('p-select').click();
+    await this.page.locator('.p-select-dropdown').click();
     await this.page.locator('.p-select-option').first().click();
     await this.saveProductButton.click();
   }
@@ -88,6 +88,6 @@ export class ProductsPage {
 
   async expectStockStatus(productName: string, status: string) {
     const row = this.page.locator('p-table tbody tr', { hasText: productName });
-    await expect(row.getByText(status)).toBeVisible();
+    await expect(row.getByText(status, { exact: true })).toBeVisible();
   }
 }
