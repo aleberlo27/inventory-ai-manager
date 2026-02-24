@@ -1,10 +1,10 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Button, ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-import type { Product, ProductWithStock, StockStatus } from '@shared/types';
+import type { Product, ProductWithStock } from '@shared/types';
 import { getStockStatus, getStockStatusLabel } from '@shared/utils/stock.utils';
 
 @Component({

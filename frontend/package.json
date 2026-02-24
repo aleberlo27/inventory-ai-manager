@@ -12,6 +12,7 @@
     "test:coverage": "jest --coverage",
     "test:e2e": "playwright test",
     "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
     "typecheck": "tsc --noEmit",
     "quality": "npm run lint && npm run typecheck && npm run test",
     "verify": "npm run quality && npm run test:e2e && npm run build"
@@ -44,6 +45,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular-eslint/builder": "^20.7.0",
     "@angular/build": "^20.3.16",
     "@angular/cli": "^20.3.16",
     "@angular/compiler-cli": "^20.1.0",
@@ -53,7 +55,10 @@
     "@types/express": "^5.0.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.17.19",
+    "angular-eslint": "^20.7.0",
     "autoprefixer": "^10.4.24",
+    "eslint": "^9.39.3",
+    "eslint-plugin-sonarjs": "^4.0.0",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
     "jest-preset-angular": "^16.0.0",
@@ -62,6 +67,7 @@
     "primeng": "^21.1.1",
     "tailwindcss": "3.3",
     "ts-jest": "^29.4.6",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "typescript-eslint": "^8.56.1"
   }
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { Toast } from 'primeng/toast';
 

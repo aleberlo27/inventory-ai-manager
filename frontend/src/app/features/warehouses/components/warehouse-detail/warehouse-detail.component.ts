@@ -98,7 +98,7 @@ export class WarehouseDetailComponent implements OnInit {
     this.showProductForm.set(true);
   }
 
-  openEditWarehouse() {
+  openEditWarehouse(): void {
     this.selectedWarehouse.set(this.warehouse());
     this.showWarehouseForm.set(true);
   }
