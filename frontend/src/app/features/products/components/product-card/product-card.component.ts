@@ -8,6 +8,7 @@ import {
   getStockStatusSeverity,
 } from '@shared/utils/stock.utils';
 import type { Product, StockStatus } from '@shared/types';
+import { TagSeverityType } from '@/app/core/models/types/tag-severity.type';
 
 @Component({
   selector: 'app-product-card',
@@ -26,8 +27,8 @@ export class ProductCardComponent {
 
   statusLabel = computed(() => getStockStatusLabel(this.stockStatus()));
 
-  statusSeverity = computed<TagSeverityType>(() =>
-    getStockStatusSeverity(this.stockStatus()) as TagSeverityType
+  statusSeverity = computed<TagSeverityType>(
+    () => getStockStatusSeverity(this.stockStatus()) as TagSeverityType,
   );
 
   onEdit(): void {
