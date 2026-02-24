@@ -1,4 +1,5 @@
-echo "Running pre-commit: lint + typecheck..."
+echo "Running pre-commit: format staged files + lint + typecheck..."
+npx lint-staged
 npm run lint --prefix frontend
 npm run typecheck --prefix frontend
 npm run lint --prefix backend

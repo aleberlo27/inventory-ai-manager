@@ -12,21 +12,18 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "frontend/src/**/*.ts": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "frontend/src/**/*.html": [
-      "prettier --write"
+    "frontend/src/**/*.{ts,html,scss}": [
+      "prettier --ignore-unknown --write"
     ],
     "backend/src/**/*.ts": [
-      "eslint --fix",
       "prettier --write"
     ]
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
+    "eslint": "^9.39.3",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.7"
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1"
   }
 }
