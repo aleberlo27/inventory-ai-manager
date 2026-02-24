@@ -12,6 +12,7 @@ import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
 import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
@@ -19,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([jwtInterceptor])),
+    provideHttpClient(withInterceptors([jwtInterceptor, errorInterceptor])),
     provideTranslateService({ fallbackLang: 'es' }),
     provideTranslateHttpLoader({ prefix: '/i18n/', suffix: '.json' }),
     providePrimeNG({ theme: { preset: Aura } }),
