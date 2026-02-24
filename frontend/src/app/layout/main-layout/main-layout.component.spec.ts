@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection, signal } from '@angular/core';
-import { Router, provideRouter } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideTranslateService } from '@ngx-translate/core';
 
@@ -21,7 +21,6 @@ describe('MainLayoutComponent', () => {
       imports: [MainLayoutComponent],
       providers: [
         { provide: AuthService, useValue: mockAuthService },
-        { provide: Router, useValue: { navigate: jest.fn(), url: '/', events: { pipe: jest.fn() } } },
         provideRouter([]),
         provideHttpClient(),
         provideZonelessChangeDetection(),

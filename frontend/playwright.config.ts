@@ -2,36 +2,32 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
-  fullyParallel: true,
+  timeout: 30000,
+  expect: { timeout: 5000 },
+  fullyParallel: false,
   forbidOnly: !!process.env['CI'],
   retries: process.env['CI'] ? 2 : 0,
-  workers: process.env['CI'] ? 1 : undefined,
   reporter: 'html',
   use: {
     baseURL: 'http://localhost:4200',
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
   },
-
   projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+  ],
+  webServer: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chromium'] },
+      command: 'npm run dev',
+      url: 'http://localhost:3000/health',
+      cwd: '../backend',
+      reuseExistingServer: !process.env['CI'],
     },
-
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      command: 'npm start',
+      url: 'http://localhost:4200',
+      cwd: '.',
+      reuseExistingServer: !process.env['CI'],
     },
   ],
-
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:4200',
-    reuseExistingServer: !process.env['CI'],
-  },
 });

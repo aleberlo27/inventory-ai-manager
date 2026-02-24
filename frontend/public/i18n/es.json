@@ -88,6 +88,7 @@
     "ACTIONS_COL": "Acciones",
     "EDIT": "Editar",
     "DELETE": "Eliminar",
+    "EMPTY_TITLE": "Sin productos",
     "EMPTY_MESSAGE": "No hay productos en este almacén. ¡Añade el primero!",
     "FILTER_PLACEHOLDER": "Buscar por nombre o SKU...",
     "STATUS_OK": "En stock",

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Button } from 'primeng/button';
-import { Tag } from 'primeng/tag';
+import { TagModule } from 'primeng/tag';
 
 import { WarehouseService } from '../../services/warehouse.service';
 import { ProductService } from '../../../products/services/product.service';
@@ -11,12 +11,12 @@ import { getStockStatus } from '@shared/utils/stock.utils';
 import type { Product, Warehouse } from '@shared/types';
 import { ProductFormComponent } from '@/app/features/products/components/product-form/product-form.component';
 import { ConfirmDialog } from 'primeng/confirmdialog';
-import { WarehouseFormComponent } from '../warehouse-form/warehouse-form.component';
+import { ProductListComponent } from '@/app/features/products/components/product-list/product-list.component';
 
 @Component({
   selector: 'app-warehouse-detail',
   standalone: true,
-  imports: [TranslatePipe, Button, Tag, ProductFormComponent, ConfirmDialog, WarehouseFormComponent],
+  imports: [TranslatePipe, Button, TagModule, ProductFormComponent, ConfirmDialog, ProductListComponent],
   templateUrl: 'warehouse-detail.component.html',
 })
 export class WarehouseDetailComponent implements OnInit {

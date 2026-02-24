@@ -23,3 +23,5 @@ export interface CreateProductDto {
 export type UpdateProductDto = Partial<CreateProductDto>;
 
 export type StockStatus = 'ok' | 'low' | 'empty';
+
+export type ProductWithStock = Product & { stockStatus: StockStatus };

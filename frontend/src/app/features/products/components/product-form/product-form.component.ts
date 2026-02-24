@@ -54,6 +54,7 @@ export class ProductFormComponent {
   private readonly fb = inject(FormBuilder);
 
   readonly loading = signal(false);
+  readonly internalProduct = signal<Product | null>(null); // <-- signal interno para manejar formulario
   readonly unitOptions = UNIT_OPTIONS;
 
   readonly form = this.fb.group({
@@ -66,9 +67,15 @@ export class ProductFormComponent {
   });
 
   constructor() {
+    // Actualiza internalProduct cuando cambia el input
     effect(() => {
-      const product = this.product();
-      if (product) {
+      this.internalProduct.set(this.product());
+    });
+
+    // Mantiene el formulario sincronizado con internalProduct
+    effect(() => {
+      const product = this.internalProduct();
+      if (product !== null) {
         this.form.patchValue({
           name: product.name,
           sku: product.sku,
@@ -77,12 +84,14 @@ export class ProductFormComponent {
           category: product.category ?? '',
           minStock: product.minStock,
         });
+      } else {
+        this.form.reset({ quantity: 0, minStock: 5 });
       }
     });
   }
 
   get isEditMode(): boolean {
-    return this.product() !== null;
+    return this.internalProduct() !== null;
   }
 
   toUppercase(value: string): string {
@@ -98,7 +107,8 @@ export class ProductFormComponent {
 
   onClose(): void {
     this.visibleChange.emit(false);
-    this.form.reset();
+    this.form.reset({ quantity: 0, minStock: 5 });
+    this.internalProduct.set(null); // <-- resetea el producto interno
   }
 
   onSubmit(): void {
@@ -108,7 +118,7 @@ export class ProductFormComponent {
     const formValue = this.form.value as CreateProductDto;
 
     const request$ = this.isEditMode
-      ? this.productService.updateProduct(this.product()!.id, formValue)
+      ? this.productService.updateProduct(this.internalProduct()!.id, formValue)
       : this.productService.createProduct(this.warehouseId(), formValue);
 
     request$.subscribe({
@@ -117,6 +127,7 @@ export class ProductFormComponent {
         this.saved.emit(product);
         this.visibleChange.emit(false);
         this.form.reset({ quantity: 0, minStock: 5 });
+        this.internalProduct.set(null);
       },
       error: () => {
         this.loading.set(false);
