@@ -11,8 +11,11 @@ import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { AuthService } from '../../services/auth.service';
+import { PasswordModule } from 'primeng/password';
 
-export const passwordMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+export const passwordMatchValidator: ValidatorFn = (
+  group: AbstractControl,
+): ValidationErrors | null => {
   const password = group.get('password')?.value as string | undefined;
   const confirmPassword = group.get('confirmPassword')?.value as string | undefined;
 
@@ -25,7 +28,7 @@ export const passwordMatchValidator: ValidatorFn = (group: AbstractControl): Val
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, TranslatePipe],
+  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, PasswordModule],
   templateUrl: 'register.component.html',
 })
 export class RegisterComponent {
