@@ -33,8 +33,9 @@ describe('AuthLayoutComponent', () => {
     expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
 
-  it('should have a min-h-screen container', () => {
-    expect(compiled.querySelector('.min-h-screen')).toBeTruthy();
+  it('should have a full height container', () => {
+    const div = compiled.querySelector('div');
+    expect(div?.className).toContain('min-h-screen');
   });
 
   it('should display an h1 with the app title', () => {
@@ -42,6 +43,9 @@ describe('AuthLayoutComponent', () => {
   });
 
   it('should have a centered layout', () => {
-    expect(compiled.querySelector('.flex.items-center.justify-center')).toBeTruthy();
+    const container = compiled.querySelector('div');
+    expect(container?.className).toContain('flex');
+    expect(container?.className).toContain('items-center');
+    expect(container?.className).toContain('justify-center');
   });
 });

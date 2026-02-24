@@ -1,79 +1,112 @@
-<div class="flex min-h-screen items-center justify-center bg-gray-50">
-  <div class="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-    <h2 class="mb-6 text-center text-2xl font-bold text-gray-800">
-      {{ 'AUTH.REGISTER_TITLE' | translate }}
-    </h2>
+<h2 class="!mb-6 !text-center !text-2xl !font-semibold !text-slate-800">
+  {{ 'AUTH.REGISTER_TITLE' | translate }}
+</h2>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-      <div class="flex flex-col gap-1">
-        <label class="font-medium text-gray-700">{{ 'AUTH.NAME' | translate }}</label>
-        <input
-          type="text"
-          formControlName="name"
-          [placeholder]="'AUTH.NAME' | translate"
-          class="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        @if (nameControl.dirty && nameControl.invalid) {
-          <small class="text-red-500">{{ 'VALIDATION.REQUIRED_NAME' | translate }}</small>
-        }
-      </div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="!flex !flex-col !gap-5">
+  <!-- NAME -->
+  <div class="!flex !flex-col !gap-2">
+    <label class="!text-sm !font-medium !text-slate-600">
+      {{ 'AUTH.NAME' | translate }}
+    </label>
 
-      <div class="flex flex-col gap-1">
-        <label class="font-medium text-gray-700">{{ 'AUTH.EMAIL' | translate }}</label>
-        <input
-          type="email"
-          formControlName="email"
-          [placeholder]="'AUTH.EMAIL' | translate"
-          class="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        @if (emailControl.dirty && emailControl.invalid) {
-          <small class="text-red-500">{{ 'VALIDATION.VALID_EMAIL' | translate }}</small>
-        }
-      </div>
+    <input
+      pInputText
+      type="text"
+      formControlName="name"
+      [placeholder]="'AUTH.NAME' | translate"
+      class="!w-full !rounded-xl !bg-white !border !border-slate-300 !px-4 !py-3 !text-slate-800 !shadow-none focus:!border-slate-900 focus:!ring-2 focus:!ring-slate-200"
+    />
 
-      <div class="flex flex-col gap-1">
-        <label class="font-medium text-gray-700">{{ 'AUTH.PASSWORD' | translate }}</label>
-        <input
-          type="password"
-          formControlName="password"
-          placeholder="••••••"
-          class="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        @if (passwordControl.dirty && passwordControl.invalid) {
-          <small class="text-red-500">{{ 'VALIDATION.MIN_LENGTH_PASSWORD' | translate }}</small>
-        }
-      </div>
-
-      <div class="flex flex-col gap-1">
-        <label class="font-medium text-gray-700">{{ 'AUTH.CONFIRM_PASSWORD' | translate }}</label>
-        <input
-          type="password"
-          formControlName="confirmPassword"
-          placeholder="••••••"
-          class="rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        @if (confirmControl.dirty && form.errors?.['passwordMismatch']) {
-          <small class="text-red-500">{{ 'VALIDATION.PASSWORDS_MISMATCH' | translate }}</small>
-        }
-      </div>
-
-      @if (errorMessage()) {
-        <div class="rounded bg-red-50 p-3 text-center text-sm text-red-600">
-          {{ errorMessage() }}
-        </div>
-      }
-
-      <button
-        type="submit"
-        [disabled]="loading()"
-        class="rounded bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
-      >
-        {{ loading() ? ('AUTH.LOADING' | translate) : ('AUTH.REGISTER_BUTTON' | translate) }}
-      </button>
-
-      <a routerLink="/auth/login" class="text-center text-sm text-blue-600 hover:underline">
-        {{ 'AUTH.HAS_ACCOUNT' | translate }}
-      </a>
-    </form>
+    @if (nameControl.dirty && nameControl.invalid) {
+      <small class="!text-xs !text-red-500">
+        {{ 'VALIDATION.REQUIRED_NAME' | translate }}
+      </small>
+    }
   </div>
-</div>
+
+  <!-- EMAIL -->
+  <div class="!flex !flex-col !gap-2">
+    <label class="!text-sm !font-medium !text-slate-600">
+      {{ 'AUTH.EMAIL' | translate }}
+    </label>
+
+    <input
+      pInputText
+      type="email"
+      formControlName="email"
+      [placeholder]="'AUTH.EMAIL' | translate"
+      class="!w-full !rounded-xl !bg-white !border !border-slate-300 !px-4 !py-3 !text-slate-800 !shadow-none focus:!border-slate-900 focus:!ring-2 focus:!ring-slate-200"
+    />
+
+    @if (emailControl.dirty && emailControl.invalid) {
+      <small class="!text-xs !text-red-500">
+        {{ 'VALIDATION.VALID_EMAIL' | translate }}
+      </small>
+    }
+  </div>
+
+  <!-- PASSWORD -->
+  <div class="!flex !flex-col !gap-2">
+    <label class="!text-sm !font-medium !text-slate-600">
+      {{ 'AUTH.PASSWORD' | translate }}
+    </label>
+
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="••••••"
+      class="!w-full !rounded-xl !bg-white !border !border-slate-300 !px-4 !py-3 !text-slate-800 !shadow-none focus:!border-slate-900 focus:!ring-2 focus:!ring-slate-200"
+    />
+
+    @if (passwordControl.dirty && passwordControl.invalid) {
+      <small class="!text-xs !text-red-500">
+        {{ 'VALIDATION.MIN_LENGTH_PASSWORD' | translate }}
+      </small>
+    }
+  </div>
+
+  <!-- CONFIRM PASSWORD -->
+  <div class="!flex !flex-col !gap-2">
+    <label class="!text-sm !font-medium !text-slate-600">
+      {{ 'AUTH.CONFIRM_PASSWORD' | translate }}
+    </label>
+
+    <input
+      type="password"
+      formControlName="confirmPassword"
+      placeholder="••••••"
+      class="!w-full !rounded-xl !bg-white !border !border-slate-300 !px-4 !py-3 !text-slate-800 !shadow-none focus:!border-slate-900 focus:!ring-2 focus:!ring-slate-200"
+    />
+
+    @if (confirmControl.dirty && form.errors?.['passwordMismatch']) {
+      <small class="!text-xs !text-red-500">
+        {{ 'VALIDATION.PASSWORDS_MISMATCH' | translate }}
+      </small>
+    }
+  </div>
+
+  @if (errorMessage()) {
+    <div
+      class="!rounded-xl !bg-red-50 !border !border-red-200 !p-3 !text-center !text-sm !text-red-600"
+    >
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <!-- BUTTON -->
+  <button
+    type="submit"
+    [disabled]="loading()"
+    class="!mt-4 !w-full !rounded-xl !bg-slate-900 !py-3 !text-white !font-semibold !transition-all !duration-200 hover:!bg-slate-800 disabled:!opacity-50 disabled:!cursor-not-allowed"
+  >
+    {{ loading() ? ('AUTH.LOADING' | translate) : ('AUTH.REGISTER_BUTTON' | translate) }}
+  </button>
+
+  <!-- LINK -->
+  <a
+    routerLink="/auth/login"
+    class="!mt-4 !block !text-center !text-sm !font-semibold !text-slate-900 hover:!underline"
+  >
+    {{ 'AUTH.HAS_ACCOUNT' | translate }}
+  </a>
+</form>
