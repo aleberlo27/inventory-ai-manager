@@ -78,13 +78,13 @@ EJEMPLOS:
 export async function askInventoryAssistant(
   userMessage: string,
   conversationHistory: ConversationMessage[],
-  inventory: InventoryContext,
+  inventory: InventoryContext
 ): Promise<AiResponse> {
   const systemPrompt = buildSystemPrompt(inventory);
 
   try {
     const response = await client.messages.create({
-      model: 'claude-opus-4-6',
+      model: 'claude-haiku-4-5-20251001',
       max_tokens: 1024,
       system: systemPrompt,
       messages: [...conversationHistory, { role: 'user', content: userMessage }],
@@ -104,6 +104,8 @@ export async function askInventoryAssistant(
     }
   } catch (err) {
     if (err instanceof AppError) throw err;
+    // eslint-disable-next-line no-console
+    console.error('Anthropic API error:', err);
     throw new AppError('AI service unavailable', 503);
   }
 }
