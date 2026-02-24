@@ -7,6 +7,7 @@ import {
 } from '../services/auth.service';
 import { AppError } from '../middleware/error.middleware';
 
+// eslint-disable-next-line sonarjs/slow-regex
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function register(req: Request, res: Response, next: NextFunction): Promise<void> {

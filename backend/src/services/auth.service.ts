@@ -56,6 +56,7 @@ export async function loginUser(credentials: LoginCredentials): Promise<AuthResp
   const isValid = await bcrypt.compare(credentials.password, user.password);
   if (!isValid) throw new AppError('Invalid credentials', 401);
 
+  // eslint-disable-next-line sonarjs/no-unused-vars
   const { password: _pw, ...safeUser } = user;
   return { user: safeUser, token: generateToken(user.id) };
 }

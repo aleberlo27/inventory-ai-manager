@@ -1,0 +1,29 @@
+{
+  "name": "inventory-ai-manager",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run start --prefix frontend\"",
+    "build": "npm run build --prefix frontend && npm run build --prefix backend",
+    "quality:frontend": "npm run lint --prefix frontend && npm run typecheck --prefix frontend && npm run test --prefix frontend",
+    "quality:backend": "npm run lint --prefix backend && npm run typecheck --prefix backend && npm run test --prefix backend",
+    "test:e2e": "playwright test --config=frontend/playwright.config.ts",
+    "verify": "npm run quality:frontend && npm run quality:backend",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "frontend/src/**/*.{ts,html,scss}": [
+      "prettier --ignore-unknown --write"
+    ],
+    "backend/src/**/*.ts": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1"
+  }
+}

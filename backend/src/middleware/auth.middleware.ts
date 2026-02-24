@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { validateToken, SafeUser } from '../services/auth.service';
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     interface Request {
       user?: SafeUser;

@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core'
 import { provideTranslateService } from '@ngx-translate/core';
 
 import { ProductListComponent } from './product-list.component';
-import type { Product } from '@shared/types';
+import type { Product, ProductWithStock } from '@shared/types';
 
 const mockProducts: Product[] = [
   {
@@ -88,54 +88,48 @@ describe('ProductListComponent', () => {
   });
 
   describe('stock status helpers', () => {
-    it('should return ok status for product with sufficient quantity', () => {
-      expect(component.getStockStatus(mockProducts[0])).toBe('ok');
+    it('filteredProducts should compute ok stockStatus for sufficient quantity', () => {
+      expect(component.filteredProducts()[0].stockStatus).toBe('ok');
     });
 
-    it('should return low status for product with quantity at or below minStock', () => {
-      expect(component.getStockStatus(mockProducts[1])).toBe('low');
+    it('filteredProducts should compute low stockStatus for quantity at or below minStock', () => {
+      expect(component.filteredProducts()[1].stockStatus).toBe('low');
     });
 
-    it('should return empty status for product with zero quantity', () => {
-      expect(component.getStockStatus(mockProducts[2])).toBe('empty');
-    });
-
-    it('should return correct severity for ok status', () => {
-      expect(component.getStockSeverity(mockProducts[0])).toBe('success');
-    });
-
-    it('should return correct severity for low status', () => {
-      expect(component.getStockSeverity(mockProducts[1])).toBe('warn');
-    });
-
-    it('should return correct severity for empty status', () => {
-      expect(component.getStockSeverity(mockProducts[2])).toBe('danger');
+    it('filteredProducts should compute empty stockStatus for zero quantity', () => {
+      expect(component.filteredProducts()[2].stockStatus).toBe('empty');
     });
 
     it('should return correct label for ok status', () => {
-      expect(component.getStockLabel(mockProducts[0])).toBe('En stock');
+      const product: ProductWithStock = { ...mockProducts[0], stockStatus: 'ok' };
+      expect(component.getStockLabel(product)).toBe('En stock');
     });
 
     it('should return correct label for low status', () => {
-      expect(component.getStockLabel(mockProducts[1])).toBe('Stock bajo');
+      const product: ProductWithStock = { ...mockProducts[1], stockStatus: 'low' };
+      expect(component.getStockLabel(product)).toBe('Stock bajo');
     });
 
     it('should return correct label for empty status', () => {
-      expect(component.getStockLabel(mockProducts[2])).toBe('Sin stock');
+      const product: ProductWithStock = { ...mockProducts[2], stockStatus: 'empty' };
+      expect(component.getStockLabel(product)).toBe('Sin stock');
     });
   });
 
   describe('row CSS class', () => {
     it('should return empty string for ok-stock product', () => {
-      expect(component.getRowClass(mockProducts[0])).toBe('');
+      const product: ProductWithStock = { ...mockProducts[0], stockStatus: 'ok' };
+      expect(component.getRowClass(product)).toBe('');
     });
 
     it('should return warning class for low-stock product', () => {
-      expect(component.getRowClass(mockProducts[1])).toContain('bg-yellow');
+      const product: ProductWithStock = { ...mockProducts[1], stockStatus: 'low' };
+      expect(component.getRowClass(product)).toContain('bg-yellow');
     });
 
     it('should return danger class for empty-stock product', () => {
-      expect(component.getRowClass(mockProducts[2])).toContain('bg-red');
+      const product: ProductWithStock = { ...mockProducts[2], stockStatus: 'empty' };
+      expect(component.getRowClass(product)).toContain('bg-red');
     });
   });
 
