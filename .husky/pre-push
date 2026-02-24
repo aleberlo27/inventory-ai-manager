@@ -1,0 +1,15 @@
+echo "Running pre-push: tests + build..."
+
+echo "Frontend: running tests..."
+npm run test --prefix frontend
+
+echo "Backend: running tests..."
+npm run test --prefix backend
+
+echo "Frontend: building..."
+npm run build --prefix frontend
+
+echo "Backend: building..."
+npm run build --prefix backend
+
+echo "All checks passed!"
